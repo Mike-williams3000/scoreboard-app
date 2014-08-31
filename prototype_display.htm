@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>iScroll demo: Check DOM Changes</title>
+<script type="text/javascript">
+var intCurrScore = 0;
+
+function addPoint()
+{
+	intCurrScore++;
+	var _domScoreHolder = document.getElementById("scoreHolderL");
+	_domScoreHolder.innerHTML = intCurrScore;
+}
+
+</script>
+
+<style type="text/css" media="all">
+</style>
+</head>
+<body>
+<div id="scoreHolderL">0</div>
+</body>
+</html>
