@@ -10,13 +10,13 @@ function openDisplayWindow()
 {
 	objDisplayWindow = window.open(strDisplayFilename, "_blank", "fullscreen=yes, toolbar=no, menubar=no, location=no");
 	return false;
-}
+};
 
 function incramentScore()
 {
 	objDisplayWindow.addPoint();
 	return false;
-}
+};
 
 
 
@@ -28,5 +28,8 @@ function incramentScore()
 <body>
 <a href="?still" onclick="return openDisplayWindow();">Open window</a>
 <a href="?still" onclick="return incramentScore();">Add +1 window</a>
+<div>
+    <input type="button" id="fullScreen" onClick="fullScreen()">
+</div>
 </body>
 </html>

@@ -10,7 +10,23 @@ function addPoint()
 	intCurrScore++;
 	var _domScoreHolder = document.getElementById("scoreHolderL");
 	_domScoreHolder.innerHTML = intCurrScore;
-}
+};
+
+function fullScreen()
+{
+	var element = document.body; // Make the body go full screen.
+	var requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullscreen;
+
+    if (requestMethod) { // Native full screen.
+        requestMethod.call(element);
+    } else if (typeof window.ActiveXObject !== "undefined") { // Older IE.
+        var wscript = new ActiveXObject("WScript.Shell");
+        if (wscript !== null) {
+            wscript.SendKeys("{F11}");
+        }
+    }
+};
+
 
 </script>
 
@@ -19,5 +35,8 @@ function addPoint()
 </head>
 <body>
 <div id="scoreHolderL">0</div>
+<div> 
+	<input type="button" id="fullScreen" onclick="fullScreen()">
+</div>
 </body>
 </html>
