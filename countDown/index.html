@@ -1,0 +1,59 @@
+<html>
+	<head>
+		<style>
+		body
+		{
+			margin: 0px;
+			padding: 0px;
+			height: 100%;
+			width:100%;
+		}
+		.boxBorderC
+		{
+			border: 1px solid black;
+			margin: 1%;
+			padding: 1%;
+		}
+		#controlsHolderL
+		{
+			height: 16%;
+
+
+		}
+		#timerOutputL
+		{
+			height: 76%;
+
+		}
+		</style>
+		<script src="_js/lib/event_manager.js" type="text/javascript"></script>
+		<script src="_js/timer.js" type="text/javascript"></script>
+
+		
+
+		<script type="text/javascript">
+			
+		</script>
+
+	</head>
+	<body>
+		<div id="controlsHolderL" class="boxBorderC">
+			
+			<div id="pLengthL">
+			<label for="pMins">Mins</label>
+			<input type="text" value="30" id="pMins"/>
+			<label for="pMins">Seconds</label>
+			<input type="text" value="00" id="pSeconds"/>
+			<input type="button" value="Set" onclick="EM.trigger('set', {'objEventData':event})"/>
+			
+			</div>
+			<input type="button" value="Start" onclick="EM.trigger('start', {'objEventData':event})"/>
+
+		</div>
+
+		<div id="timerOutputL" class="boxBorderC"></div>
+
+	
+	
+	</body>
+</html>
