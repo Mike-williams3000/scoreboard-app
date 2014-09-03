@@ -1,0 +1,31 @@
+		body, html
+		{
+			margin: 0px;
+			padding: 0px;
+			height: 100%;
+			width:100%;
+		}
+		.boxBorderC
+		{
+			border: 1px solid black;
+			margin: 1%;
+			padding: 1%;
+		}
+		#controlsHolderL
+		{
+			height: 16%;
+
+
+		}
+		#chartOutputL
+		{
+			height: 70%;
+
+		}
+		#seriesWrapperL
+		{
+			overflow: auto;
+			height: 80px;
+			border: 1px grey solid;
+			padding: 10px;
+		}

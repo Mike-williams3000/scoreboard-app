@@ -2,6 +2,8 @@
 <html>
 <head>
 <title>iScroll demo: Check DOM Changes</title>
+<link rel="stylesheet" type="text/css" href="_css/generic.css"/>
+<script src="_js/clocks.js" type="text/javascript"></script>
 <script type="text/javascript">
 var strDisplayFilename = "prototype_display.htm";
 var objDisplayWindow = null;
@@ -26,10 +28,23 @@ function incramentScore()
 </style>
 </head>
 <body>
-<a href="?still" onclick="return openDisplayWindow();">Open window</a>
-<a href="?still" onclick="return incramentScore();">Add +1 window</a>
-<div>
-    <input type="button" id="fullScreen" onClick="fullScreen()">
-</div>
+	<div id="controlsHolderL" class="boxBorderC">
+				
+		<a href="?still" onclick="return openDisplayWindow();">Open window</a>
+		<a href="?still" onclick="return incramentScore();">Add +1 window</a>
+		<div id="pLengthL">
+		<label for="pMins">Mins</label>
+		<input type="text" value="30" id="pMins"/>
+		<label for="pMins">Seconds</label>
+		<input type="text" value="00" id="pSeconds"/>
+		<input type="button" value="Set" onclick="timer.set()"/>
+		
+		</div>
+		<input type="button" value="Start" onclick="timer.start()"/>
+		<input type="button" value="Stop" onclick="timer.stop()"/>
+
+	</div>
+
+	<div id="timerOutputL" class="boxBorderC"></div>
 </body>
 </html>
