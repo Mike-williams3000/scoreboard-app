@@ -18,7 +18,7 @@ var timer =
 	var intStartTime = parseInt(timeNow.getTime());
 	 this.intEndTime = intStartTime + intPeriodLength;
 
-	this.pTimer = setInterval(this.runClock,1000);
+	this.pTimer = setInterval(this.runClock,100);
 	
 	},
 	
