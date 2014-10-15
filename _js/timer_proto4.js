@@ -1,16 +1,17 @@
-function Clock (_strName, _intTime)
+function Clock (_strName, _intTime, _booRunPastZero)
 {
 	this._strClockName = _strName;
 	this._intTimeLeft = _intTime;
-	this._intTargetTime = null;
+	this._intRunLength = _intTime;
 	this._intInitialTime = null;
-	this.HTMLElement = null;
+	this._booRunPastZero = _booRunPastZero || false;
+	this.HTMLElement = document.getElementById(_strName + "OutputL") || false;
 }
 
 Clock.prototype.setInt = function (_datNow)
 									{
 
-										this._intInitialTime = _datNow - this._intTimeLeft;
+										this._intInitialTime = _datNow + this._intTimeLeft;
 										return (this._intInitialTime);
 									};
 Clock.prototype.getInt = function ()
@@ -29,89 +30,109 @@ Clock.prototype.decreaseTime = function (_intElapsedMilli)
 Clock.prototype.setTimeLeft = function (_intTleft)
 									{													
 									 	this._intTimeLeft = _intTleft;
-									 	if (this._intTimeLeft <=0)
+									 	if (this._intTimeLeft <=0 && this._booRunPastZero != true)
 										 	{
 										 		this._intTimeLeft = 0;
-										 		clockManager.unsubscribe(this);
+										 		CLOCK_MANAGER.zeroEvent(this);
 										 	};
+										 	this.updateHtml();
 										 	
 									};
+Clock.prototype.updateHtml = function ()									
+							{
+								if (this.HTMLElement != false)
+									{
+										this.HTMLElement.innerHTML = this._intTimeLeft;
+									};
+							};
 
-var _objClockDefaults = {
+
+
+var OBJ_CLOCK_DEFAULTS = {
 	pClock:{
 			_strName:"pClock",
-			_intDefalutMS: 1800000
+			_intDefalutMS: 1800000,
+
 			},
 	jClock:{
 			_strName:"jClock",
-			_intDefalutMS: 120000
+			_intDefalutMS: 120000,
+			// eventListner pClock >= 30, to do = this.unsubscribe, this.unRender 
+			
 			},
 	lClock:{
-			_strName:"plClock",
-			_intDefalutMS: 30000
-			}
+			_strName:"pClock",
+			_intDefalutMS: 30000,
+			// eventListner jclockZero, to do = this.subscribe
+			// eventListner pClock >= 30, to do = this.unsubscribe, this.unRender 
+			},
+	totalGameTime: {
+					_strName:"totalGameTime",
+					_intDefalutMS:0,
+					_booRunPastZero:true
+				}
 	};
 	
 
+//make GAME_MANAGER, include game state:" warmup, running, lineup, halftime, endGame, gameOver"
 
 
-var TIMEPULSE = {
+
+var CLOCK_MANAGER = {
 
 	_objClocks: {},
 	
 	ticker:null,
 
-	createClocks: function()
-	{
-		for(var _clock in _objClockDefaults)
+	_objRunningClocks : {},
+
+	handleEvent_subscribe : function (_objToSubscribe)
 		{
-			var _objCurrClock = new Clock(_objClockDefaults[_clock]._strName, _objClockDefaults[_clock]._intDefalutMS)
-			this._objClocks[_objClockDefaults[_clock]._strName] = _objCurrClock;	
+			this._objRunningClocks[_objToSubscribe._strClockName] = _objToSubscribe;
+		},
+	handleEvent_unsubscribe : function (_objClockToRemove)
+		{
+			_objClockToRemove.stopEvent()	
+			delete this._objRunningClocks[_objClockToRemove];
+		},
+	handleEvent_runClocks: function()
+		{
+			var _datNow = Date.now();
+			for (var _clock in this._objRunningClocks)
+			 {
+				var _intTime = this._objRunningClocks[_clock].getInt() || this._objRunningClocks[_clock].setInt(_datNow);
+				var _intDelta =  _intTime - _datNow;
+				
+				this._objRunningClocks[_clock].setTimeLeft(_intDelta);
+				//_clock.HTMLElement.innerHTML = _clock._intTimeLeft
+			};
+		},
 
-		};
-	},
-/*
-	init: function(){
-		_intTime1 = Date.now();
+	createClocks: function()
+		{
+			for(var _clock in OBJ_CLOCK_DEFAULTS)
+			{
+				var _objCurrClock = new Clock(OBJ_CLOCK_DEFAULTS[_clock]._strName, OBJ_CLOCK_DEFAULTS[_clock]._intDefalutMS, OBJ_CLOCK_DEFAULTS[_clock]._booRunPastZero);
+				this._objClocks[OBJ_CLOCK_DEFAULTS[_clock]._strName] = _objCurrClock;	
 
-		this.ticker = setInterval(this.runClock,100);
-	},
+			};
+		},
+
+	init: function()
+		{
+			this.createClocks();
+			this.subscribe(this._objClocks.totalGameTime);
+			CLOCK_MANAGER.ticker = setInterval(function(){CLOCK_MANAGER.runClocks()},100);
+		},
 	
-	runClock: function(){
-		TIMEPULSE._intTime2 = Date.now();
-		_intMiliPassed = TIMEPULSE._intTime2 - TIMEPULSE._intTime1;
-		// time passed event
-	},
+	endGameTime: function()	
+		{
+			clearInterval(CLOCK_MANAGER.ticker);
+		},
+	handleEvent_zeroEvent:function(Clock)
+		{
+			alert(Clock + "Has reached zero");
+		}
 
-	stopClock: function(){
-		clearInterval(TIMEPULSE.ticker);
-	}
-	*/
-}
-
-var clockManager = {
-
-	_objRunninClocks : {},
-
-	subscribe : function (_objToSubscribe)
-				{
-					this._objRunninClocks[_objToSubscribe._strClockName] = _objToSubscribe;
-				},
-	unsubscribe : function (_objToSubscribe)
-				{
-					_objRunninClocks[_objToSubscribe[_strClockName]].delete;
-				},
-	runclocks: function()
-				{
-					var _datNow = Date.now();
-					for (var _clock in this._objRunninClocks)
-					 {
-						var _intTime = this._objRunninClocks[_clock].getInt() || this._objRunninClocks[_clock].setInt(_datNow);
-						var _intDelta = _datNow - _intTime;
-						var _Tleft = this._objRunninClocks[_clock].getTimeLeft() - _intDelta;
-						this._objRunninClocks[_clock].setTimeLeft(_Tleft);
-						//_clock.HTMLElement.innerHTML = _clock._intTimeLeft
-					};
-				}
-
-}
+};
+EM.register(CLOCK_MANAGER);

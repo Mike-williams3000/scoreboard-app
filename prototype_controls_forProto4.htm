@@ -42,11 +42,17 @@ function incramentScore()
 		<input type="button" value="Set" onclick="timer.set()"/>
 		
 		</div>
-		<input type="button" value="Start" onclick="timer.start()"/>
-		<input type="button" value="Stop" onclick="timer.stop()"/>
+		<input type="button" value="Start Jam" onclick="CLOCK_MANAGER.subscribe(CLOCK_MANAGER._objClocks.jClock)"/>
+		<input type="button" value="Stop Jam" onclick="timer.stop()"/>
+		<input type="button" value="New Game" onclick="CLOCK_MANAGER.init()"/>
 
 	</div>
 
-	<div id="timerOutputL" class="boxBorderC"></div>
+	<div id="totalGameTimeOutputL" class="boxBorderC"></div>
+	<div id="pClockOutputL" class="boxBorderC"></div>
+	<div id="jClockOutputL" class="boxBorderC"></div>
+	<div id="lClockOutputL" class="boxBorderC"></div>
+	
+
 </body>
 </html>
