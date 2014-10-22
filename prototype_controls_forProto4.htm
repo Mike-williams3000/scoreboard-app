@@ -4,7 +4,9 @@
 <title>iScroll demo: Check DOM Changes</title>
 <link rel="stylesheet" type="text/css" href="_css/generic.css"/>
 <script src="_js/clocks.js" type="text/javascript"></script>
+<script src="_js/lib/event_manager.js" type="text/javascript"></script>
 <script src="_js/timer_proto4.js" type="text/javascript"></script>
+<script src="_js/game_manager.js" type="text/javascript"></script>
 <script type="text/javascript">
 var strDisplayFilename = "prototype_display.htm";
 var objDisplayWindow = null;
@@ -42,9 +44,9 @@ function incramentScore()
 		<input type="button" value="Set" onclick="timer.set()"/>
 		
 		</div>
-		<input type="button" value="Start Jam" onclick="CLOCK_MANAGER.subscribe(CLOCK_MANAGER._objClocks.jClock)"/>
+		<input type="button" value="Start Jam" onclick="EM.trigger('gameStateChange', 'jamRunning')"/>
 		<input type="button" value="Stop Jam" onclick="timer.stop()"/>
-		<input type="button" value="New Game" onclick="CLOCK_MANAGER.init()"/>
+		<input type="button" value="New Game" onclick="GAME_MANAGER.handleEvent_gameStateChange('preGame')"/>
 
 	</div>
 

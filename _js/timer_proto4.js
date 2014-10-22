@@ -1,9 +1,10 @@
-function Clock (_strName, _intTime, _booRunPastZero)
+function Clock (_strName, _intTime, _booRunPastZero, _intoffSet)
 {
 	this._strClockName = _strName;
 	this._intTimeLeft = _intTime;
 	this._intRunLength = _intTime;
 	this._intInitialTime = null;
+	this._intoffSet = _intoffSet || 0;
 	this._booRunPastZero = _booRunPastZero || false;
 	this.HTMLElement = document.getElementById(_strName + "OutputL") || false;
 }
@@ -30,12 +31,12 @@ Clock.prototype.decreaseTime = function (_intElapsedMilli)
 Clock.prototype.setTimeLeft = function (_intTleft)
 									{													
 									 	this._intTimeLeft = _intTleft;
-									 	if (this._intTimeLeft <=0 && this._booRunPastZero != true)
+									 	if (this._intTimeLeft - this._intoffSet <=0 && this._booRunPastZero != true)
 										 	{
 										 		this._intTimeLeft = 0;
-										 		CLOCK_MANAGER.zeroEvent(this);
+										 		EM.trigger("clockZero", this);
 										 	};
-										 	this.updateHtml();
+										 	//this.updateHtml();
 										 	
 									};
 Clock.prototype.updateHtml = function ()									
@@ -52,6 +53,7 @@ var OBJ_CLOCK_DEFAULTS = {
 	pClock:{
 			_strName:"pClock",
 			_intDefalutMS: 1800000,
+			_intoffSet: 30000
 
 			},
 	jClock:{
@@ -61,7 +63,7 @@ var OBJ_CLOCK_DEFAULTS = {
 			
 			},
 	lClock:{
-			_strName:"pClock",
+			_strName:"lClock",
 			_intDefalutMS: 30000,
 			// eventListner jclockZero, to do = this.subscribe
 			// eventListner pClock >= 30, to do = this.unsubscribe, this.unRender 
@@ -107,6 +109,18 @@ var CLOCK_MANAGER = {
 				//_clock.HTMLElement.innerHTML = _clock._intTimeLeft
 			};
 		},
+	handleEvent_updateHTML: function ()
+			{
+				for(var _clock in this._objRunningClocks)
+					{
+						if(this._objRunningClocks[_clock].HTMLElement)
+							{
+								var _strClockFace = this.convertMS(this._objRunningClocks[_clock].getTimeLeft());
+								this._objRunningClocks[_clock].HTMLElement.innerHTML = _strClockFace
+							};
+
+					};
+			},
 
 	createClocks: function()
 		{
@@ -132,7 +146,15 @@ var CLOCK_MANAGER = {
 	handleEvent_zeroEvent:function(Clock)
 		{
 			alert(Clock + "Has reached zero");
-		}
+		},
+	convertMS: function(_intMili)
+					{
+						var _intSecondsLeft =  Math.abs((_intMili / 1000));
+						var minutes = parseInt(_intSecondsLeft / 60);
+						var seconds = parseInt(_intSecondsLeft % 60);
+						return  (minutes + " : " + seconds);
+
+					}
 
 };
 EM.register(CLOCK_MANAGER);
