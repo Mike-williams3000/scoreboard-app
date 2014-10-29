@@ -2,17 +2,19 @@ var GAME_MANAGER = {
 
 
 	gameState: "preGame", //default start state
+	previousState: null,
 	handleEvent_gameStateChange: function(newState)
 								{
-									this.gameState = newState;
+									GAME_MANAGER.previousState = GAME_MANAGER.gameState;
+									GAME_MANAGER.gameState = newState;
 									console.log("gamestate   " + this.gameState)
-									this[newState].init();
+									this[newState].init(GAME_MANAGER.previousState);
 								},
 	preGame:{
 				init: function()
 					{
 						this.createClocks();
-						EM.trigger("subscribe", CLOCK_MANAGER._objClocks.totalGameTime);
+						EM.trigger("subscribe", "totalGameTime");
 						CLOCK_MANAGER.ticker = setInterval(function()
 															{
 																CLOCK_MANAGER.handleEvent_runClocks();
@@ -27,7 +29,11 @@ var GAME_MANAGER = {
 					{
 					for(var _clock in OBJ_CLOCK_DEFAULTS)
 						{
-							var _objCurrClock = new Clock(OBJ_CLOCK_DEFAULTS[_clock]._strName, OBJ_CLOCK_DEFAULTS[_clock]._intDefalutMS, OBJ_CLOCK_DEFAULTS[_clock]._booRunPastZero);
+							var _objCurrClock = new Clock(
+									OBJ_CLOCK_DEFAULTS[_clock]._strName,
+									OBJ_CLOCK_DEFAULTS[_clock]._intDefalutMS,
+									OBJ_CLOCK_DEFAULTS[_clock]._booRunPastZero
+								);
 							CLOCK_MANAGER._objClocks[OBJ_CLOCK_DEFAULTS[_clock]._strName] = _objCurrClock;	
 
 						};
@@ -38,23 +44,27 @@ var GAME_MANAGER = {
 
 	lineUp:
 		{
-			init:function(_objPreviousState)
+			init:function(_strPreviousState)
 				{
-					EM.unregister(_objPreviousState);
-					EM.register(this.lineUp);
+					CLOCK_MANAGER._objClocks.lClock.reset();
+					EM.unregister(GAME_MANAGER[_strPreviousState]);
+					EM.register(this);
+					EM.trigger("subscribe", "lClock");
 
 
 				},
 
-			handleEvent_clockZero: function (_objclock)
+			handleEvent_clockZero: function (_objClock)
 				{
-					switch (_objclock._strName)
+					switch (_objClock._strClockName)
 						{
 						case "lClock" :
 							EM.trigger("gameStateChange", "jamRunning");
 							break;
 						case "pClock":
 							EM.trigger("gameStateChange", "endGame");
+							break;
+						default :
 							break;
 						}
 				}
@@ -63,9 +73,10 @@ var GAME_MANAGER = {
 	jamRunning:
 		{
 
-			init:function(_objPreviousState)
+			init:function(_strPreviousState)
 				{
-					EM.unregister(_objPreviousState);
+					CLOCK_MANAGER._objClocks.jClock.reset();
+					EM.unregister(GAME_MANAGER[_strPreviousState]);
 					EM.register(this);
 					//reset jam clock
 					EM.trigger("runJam");
@@ -76,17 +87,22 @@ var GAME_MANAGER = {
 				{
 					if (!CLOCK_MANAGER._objRunningClocks.hasOwnProperty("pClock"))
 						{
-							EM.trigger("subscribe", (CLOCK_MANAGER._objClocks.pClock));
+							EM.trigger("subscribe", "pClock");
 						};
 
-					EM.trigger("subscribe", CLOCK_MANAGER._objClocks.jClock);
+					if (CLOCK_MANAGER._objRunningClocks.hasOwnProperty("lClock"))
+						{
+							EM.trigger("unsubscribe", "lClock");
+						};
+
+					EM.trigger("subscribe", "jClock");
 				},
 			handleEvent_clockZero: function(_objClock)
 				{
-					switch (_objClock._strName)
+					switch (_objClock._strClockName)
 						{
 						case "jClock" :
-							Em.triger("unsubscribe",  CLOCK_MANAGER._objClocks.jClock)
+							EM.trigger("unsubscribe", "jClock")
 							EM.trigger("gameStateChange", "lineUp");
 							break;
 						case "pClock":
@@ -94,6 +110,12 @@ var GAME_MANAGER = {
 							break;	
 						}
 				},
+			handleEvent_jamEnd: function()
+				{
+					EM.trigger("unsubscribe", "jClock");
+					// display last jam totals?
+					EM.trigger("gameStateChange", "lineUp");
+				}
 		},
 
 	endGame: 
@@ -141,4 +163,9 @@ var GAME_MANAGER = {
 
 		
 };
-EM.register(GAME_MANAGER);			
+EM.register(GAME_MANAGER);
+
+function ClockType(_strWhatClockType)
+{
+	this.strClockType = _strWhatClockType;
+}

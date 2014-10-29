@@ -39,6 +39,11 @@ Clock.prototype.setTimeLeft = function (_intTleft)
 										 	//this.updateHtml();
 										 	
 									};
+Clock.prototype.reset = function ()
+	{
+		this._intTimeLeft = this._intRunLength;
+		this._intInitialTime = false;
+	};
 Clock.prototype.updateHtml = function ()									
 							{
 								if (this.HTMLElement != false)
@@ -88,14 +93,14 @@ var CLOCK_MANAGER = {
 
 	_objRunningClocks : {},
 
-	handleEvent_subscribe : function (_objToSubscribe)
+	handleEvent_subscribe : function (_strClockName)
 		{
-			this._objRunningClocks[_objToSubscribe._strClockName] = _objToSubscribe;
+			this._objRunningClocks[_strClockName] = CLOCK_MANAGER._objClocks[_strClockName];
 		},
-	handleEvent_unsubscribe : function (_objClockToRemove)
+	handleEvent_unsubscribe : function (_strClockName)
 		{
-			_objClockToRemove.stopEvent()	
-			delete this._objRunningClocks[_objClockToRemove];
+			//_objClockToRemove.stopEvent()	
+			delete this._objRunningClocks[_strClockName];
 		},
 	handleEvent_runClocks: function()
 		{

@@ -45,7 +45,7 @@ function incramentScore()
 		
 		</div>
 		<input type="button" value="Start Jam" onclick="EM.trigger('gameStateChange', 'jamRunning')"/>
-		<input type="button" value="Stop Jam" onclick="timer.stop()"/>
+		<input type="button" value="Stop Jam" onclick="EM.trigger('jamEnd')"/>
 		<input type="button" value="New Game" onclick="GAME_MANAGER.handleEvent_gameStateChange('preGame')"/>
 
 	</div>
