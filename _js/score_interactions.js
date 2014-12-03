@@ -1,32 +1,20 @@
 var SCOREINT = {
-	domOutputScore1:null,
-	domOutputScore2:null,
-	selectedTeam: 1,
-	getDomOutput:function() {
-		var out1 = document.getElementById("scoreOutput1L");
-		var out2 = document.getElementById("scoreOutput2L");
-		this.domOutputScore1 = out1;
-		this.domOutputScore2 = out2;
-		},
-	selectTeam: function(teamId)
+
+	selectedTeam:"",
+	selectTeam: function(strTeam)
 				{
-					switch(teamId){
-						case 1:
-							this.selectedTeam = 1;
-							break;
-						case 2:
-							this.selectedTeam = 2;
-							break;
-					}
+					this.selectedTeam = strTeam;
 				},
+
 	addPoints: function(points)
 				{
-					GAMEDATA["score" + this.selectedTeam] += points;
+					GAMEDATA.score[this.selectedTeam] += points;
 					this.updateScores();
 				},
 	updateScores: function ()
 				{
-					this.domOutputScore1.innerHTML = GAMEDATA.score1;
-					this.domOutputScore2.innerHTML = GAMEDATA.score2;
-				}
+					HTML_MANAGER.outputs.homeScore.innerHTML = GAMEDATA.score.home;
+					HTML_MANAGER.outputs.awayScore.innerHTML = GAMEDATA.score.away;
+				},
 };
+

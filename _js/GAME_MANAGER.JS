@@ -3,6 +3,7 @@ var GAME_MANAGER = {
 
 	gameState: "preGame", //default start state
 	previousState: null,
+	arrTimeOutTypeButtons:document.getElementsByClassName("timeoutType"),
 	handleEvent_gameStateChange: function(newState)
 								{
 									GAME_MANAGER.previousState = GAME_MANAGER.gameState;
@@ -14,6 +15,7 @@ var GAME_MANAGER = {
 				init: function()
 					{
 						this.createClocks();
+						//LOADCTRLBUTTONS(CONTROLS);
 						EM.trigger("subscribe", "totalGameTime");
 						CLOCK_MANAGER.ticker = setInterval(function()
 															{
@@ -110,11 +112,53 @@ var GAME_MANAGER = {
 							break;	
 						}
 				},
+			
+
+
 			handleEvent_jamEnd: function()
 				{
 					EM.trigger("unsubscribe", "jClock");
 					// display last jam totals?
 					EM.trigger("gameStateChange", "lineUp");
+				}
+		},
+
+	timeout:
+		{
+			init:function(_strPreviousState)
+				{
+					EM.unregister(GAME_MANAGER[_strPreviousState]);
+					if (CLOCK_MANAGER._objRunningClocks.hasOwnProperty("pClock"))
+						{
+							EM.trigger("unsubscribe", "pClock");
+						};
+
+					if (CLOCK_MANAGER._objRunningClocks.hasOwnProperty("lClock"))
+						{
+							EM.trigger("unsubscribe", "lClock");
+						};
+					if (CLOCK_MANAGER._objRunningClocks.hasOwnProperty("jClock"))
+						{
+							EM.trigger("unsubscribe", "jClock");
+						};
+						
+
+
+				}
+		},
+	teamTimeout:
+		{
+			init:function()
+				{
+
+
+				}
+		},
+	officialTimeout:
+		{
+			init:function()
+				{
+
 				}
 		},
 
@@ -155,6 +199,18 @@ var GAME_MANAGER = {
 				{
 					//set Final Score page, stop clocks, log everything, go to pub. 
 				}
+		},
+
+	toggleHotKeys:function()
+		{
+			if (!document.onkeydown)	
+				{
+					document.addEventListener("keydown", function(e) {KEYMAP.keyEvent(e)});
+				}
+			else
+				{
+					document.removeEventListener("keydown", function(e) {KEYMAP.keyEvent(e)});
+				};
 		}
 
 

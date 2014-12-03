@@ -1,6 +1,6 @@
 var KEYMAP = {
-	team1:37,  //left
-	team2:39,  //right
+	home:37,  //left
+	away:39,  //right
 	1:97,      //number keys 1 to 9
 	2:98,
 	3:99,
@@ -13,16 +13,16 @@ var KEYMAP = {
 
 	keyEvent:function(e){
 		switch (e.keyCode) {
-			case left:
+			case this.home:
 				//alert('left');
-				SCOREINT.selectTeam(1);
+				SCOREINT.selectTeam("home");
 				break;
 			case 38:
 				//alert('up');
 				break;
-			case KEYMAP.team2:
+			case this.away:
 				//alert('right');
-				SCOREINT.selectTeam(2);
+				SCOREINT.selectTeam("away");
 				break;
 			case 40:
 				//alert('down');

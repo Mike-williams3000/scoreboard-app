@@ -1,4 +1,8 @@
-var GAMEDATA = {
-	score1: 0,
-	score2:0,
+var GAMEDATA =
+{
+		score:
+			{
+				home: 0,
+				away:0
+			}
 }
