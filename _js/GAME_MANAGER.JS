@@ -10,6 +10,7 @@ var GAME_MANAGER = {
 									GAME_MANAGER.gameState = newState;
 									console.log("gamestate   " + this.gameState)
 									this[newState].init(GAME_MANAGER.previousState);
+									EM.trigger(newState);
 								},
 	preGame:{
 				init: function()
@@ -54,6 +55,7 @@ var GAME_MANAGER = {
 					EM.trigger("subscribe", "lClock");
 
 
+
 				},
 
 			handleEvent_clockZero: function (_objClock)
@@ -82,6 +84,7 @@ var GAME_MANAGER = {
 					EM.register(this);
 					//reset jam clock
 					EM.trigger("runJam");
+
 
 
 				},
@@ -141,7 +144,9 @@ var GAME_MANAGER = {
 						{
 							EM.trigger("unsubscribe", "jClock");
 						};
-						
+					EM.register(this);
+					
+
 
 
 				}

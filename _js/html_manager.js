@@ -2,9 +2,11 @@ var HTML_MANAGER =
 {
 	arrTimeOutTypeButtons:null,
 	outputs:{},
+	buttons:{},
 	init:function()
 		{
 			this.collectDomElementsByTag("div", "OutputL", this.outputs);
+			this.collectDomElementsByTag("input", "ButtonL", this.buttons);
 			this.arrTimeOutTypeButtons = document.getElementsByClassName("timeoutType");
 		},
 	collectDomElementsByTag:function(tagName, strToMatch, objStore)
