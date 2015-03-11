@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>iScroll demo: Check DOM Changes</title>
+<title>Score</title>
+<script src="_js/output_control.js" type="text/javascript"></script>
 <link rel="stylesheet" type="text/css" href="_css/displayOutput.css"/>
 <script type="text/javascript">
 var intCurrScore = 0;
@@ -13,31 +14,42 @@ function addPoint()
 	_domScoreHolder.innerHTML = intCurrScore;
 };
 
-function fullScreen()
-{
-	var element = document.body; // Make the body go full screen.
-	var requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullscreen;
 
-    if (requestMethod) { // Native full screen.
-        requestMethod.call(element);
-    } else if (typeof window.ActiveXObject !== "undefined") { // Older IE.
-        var wscript = new ActiveXObject("WScript.Shell");
-        if (wscript !== null) {
-            wscript.SendKeys("{F11}");
-        }
+/*var testClock = null;
+function storageEvent(e)
+    {
+        alert(e);
+    };
+function getClocks()
+    {
+        testClock = document.getElementById("jClockOutputL");
+        window.addEventListener("storage", storageEvent, false);
+        
+    };
+
+function checkClocks()
+    {
+        testClock.innerHTML = localStorage.getItem('jClock');
     }
-};
-
-
+*/
 </script>
 
 <style type="text/css" media="all">
 </style>
 </head>
-<body>
-<div id="scoreHolderL">0</div>
-<div> 
-	<input type="button" id="fullScreen" onclick="fullScreen()">
-</div>
+<body onload="OUTPUT_CONTROL.init()">
+    <div id="main">
+        <div id="scoreHolderL">scoreHolderL</div>
+        <div id="pClockOutputL" class="boxBorderC">pClockOutputL</div>
+        <div id="jClockOutputL" class="boxBorderC">jClockOutputL</div>
+        <div id="lClockOutputL" class="boxBorderC">lClockOutputL</div>
+        <div id="genericTimeoutClockOutputL" class="boxBorderC">genericTimeoutClockOutputL</div>
+        <div id="teamTimeoutClockOutputL" class="boxBorderC"></div>
+        <div id="homeScoreOutputL" class="scoreC">homeScoreOutputL</div>
+        <div id="awayScoreOutputL"class="scoreC">awayScoreOutputL</div>
+        <div> 
+        	<input type="button" id="fullScreen" onclick="OUTPUT_CONTROL.fullscreen()">
+        </div>
+    </div>
 </body>
 </html>

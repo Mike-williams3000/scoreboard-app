@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Score Board</title>
+<link rel="stylesheet" type="text/css" href="_css/generic.css"/>
+<script src="_js/clocks.js" type="text/javascript"></script>
+<script src="_js/key_controls.js" type="text/javascript"></script>
+<script src="_js/score_interactions.js" type="text/javascript"></script>
+<script src="_js/lib/event_manager.js" type="text/javascript"></script>
+<script src="_js/html_manager.js" type="text/javascript"></script>
+<script src="_js/view_manager.js" type="text/javascript"></script>
+<script src="_js/timer.js" type="text/javascript"></script>
+<script src="_js/game_manager.js" type="text/javascript"></script>
+<script src="_js/game_data.js" type="text/javascript"></script>
+<script type="text/javascript">
+var strDisplayFilename = "mobile_display.htm";
+var objDisplayWindow = null;
+
+function openDisplayWindow()
+{
+	objDisplayWindow = window.open(strDisplayFilename, "_blank", "fullscreen=yes, toolbar=no, menubar=no, location=no");
+	return false;
+};
+
+function incramentScore()
+{
+	objDisplayWindow.addPoint();
+	return false;
+};
+
+
+
+</script>
+
+<style type="text/css" media="all">
+</style>
+</head>
+<body onLoad="HTML_MANAGER.init()">
+	<div id="controlsHolderL" class="boxBorderC">
+				
+		<a href="?still" onclick="return openDisplayWindow();">Open window</a>
+		<a href="?still" onclick="return incramentScore();">Add +1 window</a>
+		<input type="button" value="Open Window" onclick="openDisplayWindow()"/>
+		<div id="pLengthL">
+		<label for="pMins">Mins</label>
+		<input type="text" value="30" id="pMins"/>
+		<label for="pMins">Seconds</label>
+		<input type="text" value="00" id="pSeconds"/>
+		<input type="button" value="Set" onclick="timer.set()"/>
+		
+		</div>
+		<input type="button" value="Start Jam" onclick="EM.trigger('gameStateChange', ['jamRunning'])"/>
+		<input type="button" value="Stop Jam" onclick="EM.trigger('jamEnd')"/>
+		<input type="button" value="New Game" onclick="EM.trigger('gameStateChange', ['preGame'])"/>
+		<input type="button" value="TimeOut" onclick="EM.trigger('gameStateChange', ['timeout'])"/>
+		<input type="button" value="TTOHome" onclick="EM.trigger('gameStateChange', ['teamTimeout', 'home'])" class="timeoutType" id="teamTimeoutHomeButtonL"/>
+		<input type="button" value="TTOAway" onclick="EM.trigger('gameStateChange', ['teamTimeout', 'away'])" class="timeoutType" id="teamTimeoutAwayButtonL"/>
+		<input type="button" value="official" onclick="EM.trigger('gameStateChange', ['officialTimeout'])" class="timeoutType" id="officialTimeoutButtonL"/>
+
+
+	</div>
+
+	<div id="totalGameTimeOutputL" class="boxBorderC"></div>
+	<div id="pClockOutputL" class="boxBorderC"></div>
+	<div id="jClockOutputL" class="boxBorderC"></div>
+	<div id="lClockOutputL" class="boxBorderC"></div>
+	<div id="genericTimeoutClockOutputL" class="boxBorderC"></div>
+	<div id="teamTimeoutClockOutputL" class="boxBorderC"></div>
+	<div id="homeScoreOutputL" class="scoreC"></div>
+	<div id="awayScoreOutputL"class="scoreC"></div>
+	
+
+</body>
+</html>

@@ -4,20 +4,22 @@ var GAME_MANAGER = {
 	gameState: "preGame", //default start state
 	previousState: null,
 	arrTimeOutTypeButtons:document.getElementsByClassName("timeoutType"),
-	handleEvent_gameStateChange: function(newState)
+	handleEvent_gameStateChange: function(args)
 								{
 									GAME_MANAGER.previousState = GAME_MANAGER.gameState;
-									GAME_MANAGER.gameState = newState;
+									GAME_MANAGER.gameState = args[0];
+									EM.trigger("stateExit")
 									console.log("gamestate   " + this.gameState)
-									this[newState].init(GAME_MANAGER.previousState);
-									EM.trigger(newState);
+									this[args[0]].init(GAME_MANAGER.previousState, args[1]);
+									EM.trigger(args[0]);
 								},
 	preGame:{
 				init: function()
 					{
 						this.createClocks();
 						//LOADCTRLBUTTONS(CONTROLS);
-						EM.trigger("subscribe", "totalGameTime");
+						EM.trigger("subscribe", ["totalGameTime"]);
+						localStorage.setItem("homeScore", "0")
 						CLOCK_MANAGER.ticker = setInterval(function()
 															{
 																CLOCK_MANAGER.handleEvent_runClocks();
@@ -25,7 +27,6 @@ var GAME_MANAGER = {
 
 
 															},100); //change this to set frequency of updates
-						
 					},
 
 				createClocks: function()
@@ -42,6 +43,11 @@ var GAME_MANAGER = {
 						};
 					},
 
+				handleEvent_stateExit: function()
+				{
+
+				}
+
 			},
 
 
@@ -52,7 +58,7 @@ var GAME_MANAGER = {
 					CLOCK_MANAGER._objClocks.lClock.reset();
 					EM.unregister(GAME_MANAGER[_strPreviousState]);
 					EM.register(this);
-					EM.trigger("subscribe", "lClock");
+					EM.trigger("subscribe", ["lClock"]);
 
 
 
@@ -63,14 +69,18 @@ var GAME_MANAGER = {
 					switch (_objClock._strClockName)
 						{
 						case "lClock" :
-							EM.trigger("gameStateChange", "jamRunning");
+							EM.trigger("gameStateChange", ["jamRunning"]);
 							break;
 						case "pClock":
-							EM.trigger("gameStateChange", "endGame");
+							EM.trigger("gameStateChange", ["endGame"]);
 							break;
 						default :
 							break;
 						}
+				},
+			hadnleEvent_stateExit: function ()
+				{
+
 				}
 		},
 
@@ -92,26 +102,26 @@ var GAME_MANAGER = {
 				{
 					if (!CLOCK_MANAGER._objRunningClocks.hasOwnProperty("pClock"))
 						{
-							EM.trigger("subscribe", "pClock");
+							EM.trigger("subscribe", ["pClock"]);
 						};
 
 					if (CLOCK_MANAGER._objRunningClocks.hasOwnProperty("lClock"))
 						{
-							EM.trigger("unsubscribe", "lClock");
+							EM.trigger("unsubscribe", ["lClock"]);
 						};
 
-					EM.trigger("subscribe", "jClock");
+					EM.trigger("subscribe", ["jClock"]);
 				},
 			handleEvent_clockZero: function(_objClock)
 				{
 					switch (_objClock._strClockName)
 						{
 						case "jClock" :
-							EM.trigger("unsubscribe", "jClock")
-							EM.trigger("gameStateChange", "lineUp");
+							EM.trigger("unsubscribe", ["jClock"])
+							EM.trigger("gameStateChange", ["lineUp"]);
 							break;
 						case "pClock":
-							EM.trigger("gameStateChange", "endGame");
+							EM.trigger("gameStateChange", ["endGame"]);
 							break;	
 						}
 				},
@@ -120,52 +130,107 @@ var GAME_MANAGER = {
 
 			handleEvent_jamEnd: function()
 				{
-					EM.trigger("unsubscribe", "jClock");
+					EM.trigger("unsubscribe", ["jClock"]);
 					// display last jam totals?
-					EM.trigger("gameStateChange", "lineUp");
+					EM.trigger("gameStateChange", ["lineUp"]);
+				},
+
+			hadnleEvent_stateExit: function ()
+				{
+
 				}
 		},
 
-	timeout:
+	officialTimeout:
 		{
+			timeoutState:null,
+
 			init:function(_strPreviousState)
 				{
-					EM.unregister(GAME_MANAGER[_strPreviousState]);
-					if (CLOCK_MANAGER._objRunningClocks.hasOwnProperty("pClock"))
-						{
-							EM.trigger("unsubscribe", "pClock");
-						};
+					if (GAME_MANAGER.gamestate != "officialTimeout")
+					{
+						CLOCK_MANAGER._objClocks.genericTimeoutClock.reset();
+						EM.unregister(GAME_MANAGER[_strPreviousState]);
+						if (CLOCK_MANAGER._objRunningClocks.hasOwnProperty("pClock"))
+							{
+								EM.trigger("unsubscribe", ["pClock"]);
+							};
 
-					if (CLOCK_MANAGER._objRunningClocks.hasOwnProperty("lClock"))
-						{
-							EM.trigger("unsubscribe", "lClock");
-						};
-					if (CLOCK_MANAGER._objRunningClocks.hasOwnProperty("jClock"))
-						{
-							EM.trigger("unsubscribe", "jClock");
-						};
-					EM.register(this);
+						if (CLOCK_MANAGER._objRunningClocks.hasOwnProperty("lClock"))
+							{
+								EM.trigger("unsubscribe", ["lClock"]);
+							};
+						if (CLOCK_MANAGER._objRunningClocks.hasOwnProperty("jClock"))
+							{
+								EM.trigger("unsubscribe", ["jClock"]);
+							};
+						if (!CLOCK_MANAGER._objRunningClocks.hasOwnProperty("genericTimeoutClock"))
+							{
+								EM.trigger("subscribe", ["genericTimeoutClock"]);
+							};
+						EM.register(this);
+					}
 					
 
 
 
-				}
-		},
-	teamTimeout:
-		{
-			init:function()
+				},
+			handleEvent_stateExit: function ()
 				{
-
-
+					EM.trigger("timeoutExit");
+					if (CLOCK_MANAGER._objRunningClocks.hasOwnProperty("genericTimeoutClock"))
+							{
+								EM.trigger("unsubscribe", ["genericTimeoutClock"]);
+							}
 				}
 		},
-	officialTimeout:
-		{
-			init:function()
-				{
 
-				}
-		},
+		teamTimeout: 
+			{
+				teamName:null,
+				init:function(_strPreviousState, arrArgs)
+					{
+						this.teamName= arrArgs[1];
+						
+						CLOCK_MANAGER._objClocks.teamTimeoutClock.reset();
+						EM.unregister(GAME_MANAGER[_strPreviousState]);
+						if (CLOCK_MANAGER._objRunningClocks.hasOwnProperty("pClock"))
+							{
+								EM.trigger("unsubscribe", ["pClock"]);
+							};
+
+						if (CLOCK_MANAGER._objRunningClocks.hasOwnProperty("lClock"))
+							{
+								EM.trigger("unsubscribe", ["lClock"]);
+							};
+						if (CLOCK_MANAGER._objRunningClocks.hasOwnProperty("jClock"))
+							{
+								EM.trigger("unsubscribe", ["jClock"]);
+							};
+						if (!CLOCK_MANAGER._objRunningClocks.hasOwnProperty("teamTimeoutClock"))
+							{
+								EM.trigger("subscribe", ["teamTimeoutClock"]);
+							};
+						EM.register(this);
+					},
+
+				handleEvent__clockZero: function(_objclock)
+					{
+						if (_objclock = "teamTimeoutClock")
+							{
+								EM.trigger("gameStateChange", ["lineUp"])
+							};
+					},
+				handleEvent_stateExit: function()
+					{
+						EM.trigger("unsubscribe", ["teamTimeoutClock"])
+					}
+
+					
+
+			},
+			
+
 
 	endGame: 
 		{
@@ -184,7 +249,7 @@ var GAME_MANAGER = {
 							Em.triger("unsubscribe",  CLOCK_MANAGER._objClocks.jClock);
 							break;
 						case "pClock":
-							EM.trigger("gameStateChange", "gameOver");
+							EM.trigger("gameStateChange", ["gameOver"]);
 							break;	
 						}
 				}
