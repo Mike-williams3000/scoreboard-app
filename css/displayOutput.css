@@ -1,0 +1,48 @@
+
+
+
+
+body:-webkit-full-screen
+{
+  background: url("../uploads/background.jpg") no-repeat center center fixed; 
+	/*background-color: black;*/
+	color:white;
+	
+
+
+}
+
+
+
+
+
+
+#homeScoreOutputL
+{
+	position:fixed;
+	left:10%;
+	top:50%;
+}
+#awayScoreOutputL
+{
+	position:fixed;
+	right:10%;
+	top:50%;
+
+}
+#centreClockOutputL
+{
+	position: fixed;
+	left:50%;
+	top:50%;
+
+}
+
+
+#main {
+    
+    position: absolute;
+    left:50%;
+    top:50%;
+
+}
