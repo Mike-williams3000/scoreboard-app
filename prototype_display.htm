@@ -13,25 +13,24 @@ function addPoint()
 	var _domScoreHolder = document.getElementById("scoreHolderL");
 	_domScoreHolder.innerHTML = intCurrScore;
 };
+function fullscreen()
+        {
+                var element = document.body; // Make the body go full screen.
+                var requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullscreen;
+
+                 if (requestMethod) 
+                    { // Native full screen.
+                    requestMethod.call(element);
+                    } else if (typeof window.ActiveXObject !== "undefined") { // Older IE.
+                    var wscript = new ActiveXObject("WScript.Shell");
+                if (wscript !== null) {
+                    wscript.SendKeys("{F11}");
+                }}
+            //element.style.backgroundImage="url('/uploads/background.jpg')";
+            //element.style.backgroundSize="cover";
+        };
 
 
-/*var testClock = null;
-function storageEvent(e)
-    {
-        alert(e);
-    };
-function getClocks()
-    {
-        testClock = document.getElementById("jClockOutputL");
-        window.addEventListener("storage", storageEvent, false);
-        
-    };
-
-function checkClocks()
-    {
-        testClock.innerHTML = localStorage.getItem('jClock');
-    }
-*/
 </script>
 
 <style type="text/css" media="all">
@@ -48,7 +47,7 @@ function checkClocks()
         <div id="homeScoreOutputL" class="scoreC">homeScoreOutputL</div>
         <div id="awayScoreOutputL"class="scoreC">awayScoreOutputL</div>
         <div> 
-        	<input type="button" id="fullScreen" onclick="OUTPUT_CONTROL.fullscreen()">
+        	<input type="button" id="fullScreen" onclick="fullscreen()">
         </div>
     </div>
 </body>

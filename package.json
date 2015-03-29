@@ -1,0 +1,13 @@
+{
+  "name": "nw-demo",
+  "main": "index.htm",
+   "scripts": {
+    "start": "nw"
+  },
+  "author": "",
+  "window": {
+    "toolbar": false,
+    "width": 800,
+    "height": 500
+  }
+}

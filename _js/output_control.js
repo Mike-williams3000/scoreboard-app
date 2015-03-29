@@ -2,7 +2,7 @@ var OUTPUT_CONTROL =
     {
         ticker:null,
         outputs:{},
-        fullscreen:function()
+      /*  fullscreen:function()
         {
                 var element = document.body; // Make the body go full screen.
                 var requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullscreen;
@@ -17,7 +17,7 @@ var OUTPUT_CONTROL =
                 }}
             element.style.backgroundImage="url('/uploads/background.jpg')";
             element.style.backgroundSize="cover";
-        },
+        },*/
         
 
         init: function()
