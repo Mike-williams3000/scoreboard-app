@@ -24,6 +24,9 @@ onFileUploadComplete: function (file) {
 app.get('/', function(req, res){
     res.sendFile(__dirname + '/index.htm');
 });
+app.get('/test', function(req, res){
+    res.send('{"var" : "fish", "array" : [1,2,3,4]}');
+});
 app.post('/',function(req,res){
   if(done==true){
     console.log(req.files);

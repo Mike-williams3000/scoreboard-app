@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Score Board</title>
+<script> 
+ var gui = require('nw.gui');
+
+// Create an empty menu
+var menu = new gui.Menu({type:'menubar'});
+    var fileSubMenu = new gui.Menu();
+    fileSubMenu.append(new gui.MenuItem({label: 'Exit',
+                                         click: function() {
+                                                console.log("close function");
+                                                window.close();
+                                                }
+                                        }));
+
+// Add some items
+menu.append(new gui.MenuItem({ label: 'File', submenu: fileSubMenu }));
+menu.append(new gui.MenuItem({ label: 'View' }));
+menu.append(new gui.MenuItem({ label: 'Game' }));
+menu.append(new gui.MenuItem({ type: 'separator' }));
+menu.append(new gui.MenuItem({ label: 'Halp' }));
+    gui.Window.get().menu = menu;
+
+</script>
+
+</head>
+<body>
+    <div id="mainLeft">
+        <input type="button" value="Keyboard Map"/><br>
+        <input type="button" value="Launch Scoreboard"/><br><br>
+        <input type="button" value="Start Jam" onclick="EM.trigger('gameStateChange', ['jamRunning'])"/>
+		<input type="button" value="Stop Jam" onclick="EM.trigger('jamEnd')"/><br>
+		<input type="button" value="TimeOut" onclick="EM.trigger('gameStateChange', ['timeout'])"/><br>
+		<input type="button" value="official" onclick="EM.trigger('gameStateChange', ['officialTimeout'])" class="timeoutType" id="officialTimeoutButtonL"/>
+		<input type="button" value="TTOHome" onclick="EM.trigger('gameStateChange', ['teamTimeout', 'home'])" class="timeoutType" id="teamTimeoutHomeButtonL"/>
+		<input type="button" value="TTOAway" onclick="EM.trigger('gameStateChange', ['teamTimeout', 'away'])" class="timeoutType" id="teamTimeoutAwayButtonL"/>
+    </div>
+	
+	
+
+</body>
+<script>
+</script>
+</html>
