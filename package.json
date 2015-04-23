@@ -1,7 +1,8 @@
 {
  "name": "nw-demo",
- "main": "index.html",
+ "main": "dashboard.html",
  "node-main":"server.js",
+ 
  "window": {
     "toolbar": true,
     "width": 800,
