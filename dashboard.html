@@ -12,6 +12,7 @@
     
     <script src="js/jquery-2.1.3.js"></script>
 
+    <script src="js/state-machine.js"></script>
     <title>Dashboard Template for Bootstrap</title>
 
     <!-- Bootstrap core CSS -->
@@ -19,6 +20,10 @@
 
     <!-- Custom styles for this template -->
     <link href="dashboard.css" rel="stylesheet">
+    <link href="css/dashboard_extend.css" rel="stylesheet">
+      
+    <script src="js/timer_test.js"></script>
+    <script src="js/game_state.js"></script>
 
     
 
@@ -77,12 +82,13 @@
 
           <div class="row placeholders">
             <div class="col-xs-6 col-sm-3 placeholder">
+                <h2 class="sub-header">Primary Controls</h2>
+        <button type="button" class="btn btn-lg btn-success" onclick="GM.startJam()">Start Jam</button>
+        <button type="button" class="btn btn-lg btn-danger" onclick="GM.stopJam()">Stop Jam</button><br><br>
+        <button type="button" class="btn btn-lg btn-info" onclick="GM.callTTO()">TTO</button>
+        <button type="button" class="btn btn-lg btn-warning" onclick="GM.callOTO()">OTO</button><br><br>
         <button type="button" class="btn btn-lg btn-default">Default</button>
         <button type="button" class="btn btn-lg btn-primary">Primary</button>
-        <button type="button" class="btn btn-lg btn-success">Success</button>
-        <button type="button" class="btn btn-lg btn-info">Info</button>
-        <button type="button" class="btn btn-lg btn-warning">Warning</button>
-        <button type="button" class="btn btn-lg btn-danger">Danger</button>
         <button type="button" class="btn btn-lg btn-link">Link</button>
               
               <h4>Label</h4>
@@ -96,28 +102,53 @@
               <tbody>
                 <tr>
                   <td>Period Clock</td>
-                  <td>{{pClock}}</td>
+                  <td class="clockOutput">{{pClock | date:'mm:ss'}}
+                      <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-menu-up upDown" aria-hidden="true"></span></button>
+                        </div>
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-menu-down upDown" aria-hidden="true"></span></button>
+                        </div>
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-default"   style="border-left-width: thick; border-left-color: hotpink;">
+                            <span class="glyphicon glyphicon-menu-up upDown" aria-hidden="true"></span></button>
+                        </div>
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-menu-down upDown" aria-hidden="true"></span></button>
+                        </div>
+                      </div>
+                  
+                       
+                       
+                            
+                      
+                
+                    </td>
                  
                 </tr>
                 <tr>
                   <td>Jam Clock</td>
-                  <td>{{jClock}}</td>
+                  <td>{{jClock | date:'mm:ss'}}</td>
                   
                 </tr>
                 <tr>
                   <td>Line Up Clock</td>
-                  <td>{{lClock}}</td>
+                  <td>{{lClock | date:'mm:ss'}}</td>
                   
                 </tr>
                 <tr>
                   <td>Team Timeout clock</td>
-                  <td>{{TTOClock}}</td>
+                  <td>{{TTOClock | date:'mm:ss'}}</td>
                   
                 
                 </tr>
                 <tr>
                   <td>Official Timeout Clock</td>
-                  <td>{{OTOClock}}</td>
+                  <td>{{OTOClock | date:'mm:ss'}}</td>
                   
                 </tr>
                 
@@ -126,15 +157,29 @@
               </tbody>
             </table>
           </div>
-              <img data-src="holder.js/200x200/auto/vine" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
+              
             </div>
             <div class="col-xs-6 col-sm-3 placeholder">
-              <img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
+                <h2 class="sub-header">Score</h2>
+                  <div class="table-responsive">
+            <table class="table table-striped">
+             
+              <tbody>
+                <tr>
+                  <td>Team 1</td>
+                  <td>Score 1</td>
+                </tr>
+                <tr>
+                    <td>Team 2</td>
+                    <td>Score 2</td>
+                </tr>
+               
+                </tbody>
+            </table>
+              
+              
             </div>
+              </div>
             <div class="col-xs-6 col-sm-3 placeholder">
           
             
