@@ -5,6 +5,7 @@ var fs = require('fs');
 var multer = require('multer');
 var httpServer = http.Server(app);
 var done= false;
+var state = require('./js/game-state-module.js');
 
 app.use(express.static(__dirname));
 
@@ -26,6 +27,8 @@ app.get('/', function(req, res){
 });
 app.get('/test', function(req, res){
     res.send('{"var" : "fish", "array" : [1,2,3,4]}');
+    console.log(state);
+    state.startJam();
 });
 app.post('/',function(req,res){
   if(done==true){
