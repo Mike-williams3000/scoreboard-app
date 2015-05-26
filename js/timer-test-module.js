@@ -12,7 +12,7 @@ var CLOCK_MANAGER = {
         jClock:{
                 _strName:"jClock",
                 _intDefalutMS: 120000,
-                options:{refreshRateMS: 5000} 
+                options:{refreshRateMS: 100} 
                
                 },
         lClock:{
