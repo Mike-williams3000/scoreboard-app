@@ -26,7 +26,7 @@ var GM = state_machine.create({
             }, // stop jam clock
           
         onlineUp: function(){
-                timerMod.objClocks._objClocks.lClock.reset();
+                timerMod.objClocks.lClock.reset();
                 timerMod.objClocks.lClock.start();
             },
         onleavelineUp: function()
@@ -44,9 +44,9 @@ var GM = state_machine.create({
                 timerMod.objClocks.TTOClock.start();
             },
         
-	    onofficialtimeout:    function(event, from, to)   {
+	    onofficialTimeout:    function(event, from, to)   {
                 timerMod.objClocks.pClock.stop();
-                timerMod.objClocks.TTOClock.start();
+                timerMod.objClocks.OTOClock.start();
             },
         onleaveofficialTimeout: function(event, from, to){
                 timerMod.objClocks.TTOClock.stop();
