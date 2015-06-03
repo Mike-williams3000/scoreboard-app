@@ -1,23 +1,25 @@
 var Stopwatch = require('timer-stopwatch');
+//var state = require('./game-state-module.js');
 var CLOCK_MANAGER = {
     objClocks:{},
     clockDefaults:{
         pClock:{
 			_strName:"pClock",
-			_intDefalutMS: 1800000,
-			options:{almostDone:30000}
+			_intDefalutMS: 60000,
+			options:{almostDoneMS:30000}
             
 
 			},
         jClock:{
                 _strName:"jClock",
-                _intDefalutMS: 120000,
-                options:{refreshRateMS: 100} 
-               
+                _intDefalutMS: 10000
+                
+                
                 },
         lClock:{
                 _strName:"lClock",
-                _intDefalutMS: 30000
+                _intDefalutMS: 5000
+                
                 
                 },
 
@@ -45,12 +47,7 @@ var CLOCK_MANAGER = {
                             _objCurrClock.on('time', function(time) {
                                     console.log(time.ms);
                                     });*/
-                            _objCurrClock._events = {
-                                done:function()
-                                                     {
-                                                         console.log("timer done");
-                                                     }
-                                }
+                            
 									
 							CLOCK_MANAGER.objClocks[this.clockDefaults[_clock]._strName] = _objCurrClock;	
 

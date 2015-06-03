@@ -16,7 +16,10 @@ var GM = state_machine.create({
             },
           
 	    onjamRunning:  function(event, from, to, msg) { 
-                timerMod.objClocks.pClock.start();
+               if (timerMod.objClocks.pClock.runTimer == false) 
+                   {
+                       timerMod.objClocks.pClock.start();
+                   };
                 timerMod.objClocks.jClock.reset();
                 timerMod.objClocks.jClock.start();
                 
@@ -54,11 +57,36 @@ var GM = state_machine.create({
   		}
 
 });
+timerMod.objClocks.lClock.on('done', function()
+                            {
+                                console.log('line up clock done')
+                                if (GM.automate == true)
+                                {
+                                    GM.startJam();
+                                };
+                            }
+                            );
 
-
+timerMod.objClocks.jClock.on('done', function()
+                            {
+                                console.log('Jam clock done')
+                                if (GM.automate == true)
+                                {
+                                    GM.stopJam();
+                                };
+                            }
+                            );
+timerMod.objClocks.pClock.on('almostdone', function()
+                            {
+                                console.log('last 30 seconds')
+                                GM.automate = false;
+                            }
+                            );
+GM.automate = true;
 GM.onbeforeevent = function(event, from, to, args)
 					{
 						console.log(event + " " + from  + " " + to + " " + args);
+                       // return false; canceles the event
 					};
 module.exports = GM;
 
