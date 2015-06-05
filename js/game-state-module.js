@@ -7,7 +7,8 @@ var GM = state_machine.create({
 	    { name: 'callOTO', from: ['lineUp', 'teamTimeout', 'officialTimeout'] ,  to: 'officialTimeout'      },
 	    { name: 'callTTO', from: ['lineUp', 'teamTimeout', 'officialTimeout'] ,     to: 'teamTimeout'      },
 	    { name: 'startJam',from: ['gameReady', 'lineUp', 'teamTimeout', 'officialTimeout'], to: 'jamRunning'    },
-	    { name: 'stopJam',from: 'jamRunning', to: 'lineUp'    }
+	    { name: 'stopJam',from: 'jamRunning', to: 'lineUp'    },
+        { name: 'startLineUp', from:'*', to: 'lineUp' }
 		],
     callbacks: {
         
@@ -80,6 +81,15 @@ timerMod.objClocks.pClock.on('almostdone', function()
                             {
                                 console.log('last 30 seconds')
                                 GM.automate = false;
+                            }
+                            );
+timerMod.objClocks.TTOClock.on('done', function()
+                            {
+                                console.log('TTO clock done')
+                                if (GM.automate == true)
+                                {
+                                    GM.startLineUp();
+                                };
                             }
                             );
 GM.automate = true;
