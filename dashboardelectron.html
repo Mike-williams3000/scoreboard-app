@@ -8,16 +8,21 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="bootstrap/docs/favicon.ico">
-      <script>
-        var gui = require('nw.gui');
-          
-      </script>
-    <script src="js/key_controls.js"></script>
-    <script src="js/score_interactions.js"></script>
       
     <script src="js/angular.js"></script>
+      
+    <script src="js/key_controls.js"></script>
+    <script src="js/score_interactions.js"></script>
     
-    <script src="js/jquery-2.1.3.js"></script>
+    <script>
+        var remote = require('remote');
+        var main = remote.require('./main.js');
+        console.log(remote);
+        var gameClocks = main.clocks.objClocks;
+    window.$ = window.jQuery = require('./js/jquery-2.1.3.js')
+      
+      
+    </script>
       
 
    
@@ -27,7 +32,7 @@
     <link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="dashboard.css" rel="stylesheet">
+    <link href="css/dashboard.css" rel="stylesheet">
     <link href="css/dashboard_extend.css" rel="stylesheet">
       
    
@@ -166,19 +171,19 @@
           </div>
               
             </div>
-            <div class="col-xs-6 col-sm-3 placeholder" >
+            <div class="col-xs-6 col-sm-3 placeholder">
                 <h2 class="sub-header">Score</h2>
                   <div class="table-responsive">
             <table class="table table-striped">
              
-              <tbody>
+            <tbody>
                 <tr>
                   <td id="home">Team1</td>
                   <td id="away">Team2</td>
                 </tr>
                 <tr>
-                    <td>Score 1</td>
-                    <td>Score 2</td>
+                    <td id="homeScore">Score 1</td>
+                    <td id="awayScore">Score 2</td>
                 </tr>
                
                 </tbody>
@@ -206,6 +211,6 @@
     <script src="bootstrap/docs/assets/js/vendor/holder.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="bootstrap/docs/assets/js/ie10-viewport-bug-workaround.js"></script>
-  <script>var main = process.mainModule.exports; var gameClocks = main.clocks.objClocks;</script>
+ 
   </body>
 </html>

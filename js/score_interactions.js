@@ -3,18 +3,31 @@ var SCOREINT = {
 	selectedTeam:"",
 	selectTeam: function(strTeam)
 				{
-					this.selectedTeam = strTeam;
+					if (this.selectedTeam == strTeam)
+                    {
+                        this.selectedTeam ="";
+                    $('#' + strTeam).toggleClass('red');
+                    }
+                    else
+                    {
+                        $('#' + this.selectedTeam).toggleClass('red');
+                        this.selectedTeam = strTeam;
+                        $('#' + strTeam).toggleClass('red');
+                    }
 				},
 
-	addPoints: function(points)
+	addPoints: function(intPoints)
 				{
-					GAMEDATA.score[this.selectedTeam] += points;
-					this.updateScores();
-				},
-	updateScores: function ()
-				{
-					HTML_MANAGER.outputs.homeScore.innerHTML = GAMEDATA.score.home;
-					HTML_MANAGER.outputs.awayScore.innerHTML = GAMEDATA.score.away;
-				},
-};
+                    var json = {};
+                    json.selectedTeam = this.selectedTeam;
+                    json.points = intPoints;
+					$.post("http://localhost:3000/score", json, function(data)
+                                                {
+                                                    console.log(data);
+                                                    $('#homeScore').html(data.home);
+                                                    $('#awayScore').html(data.away);
+                                                    
+                                                })
+				}
+}
 

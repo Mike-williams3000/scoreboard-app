@@ -1,6 +1,8 @@
 var app = angular.module('JTApp', []);
 app.controller('timersCtrl', function($scope) {
-      var socket = io('http://192.168.173.1:3000');
+    var socketLoc =  window.location.href.substring(0, window.location.href.lastIndexOf('/'));
+                
+      var socket = io(socketLoc);
         socket.on('update', function (objClocks) {
         console.log(objClocks);
             

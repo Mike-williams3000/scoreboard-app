@@ -67,3 +67,7 @@ var KEYMAP = {
 		}
 
 }
+window.onkeydown = function(e){
+                    //alert(e);
+                    KEYMAP.keyEvent(e);
+                              };

@@ -3,13 +3,18 @@ var app = express();
 var http = require('http');
 var fs = require('fs');
 var multer = require('multer');
+var bodyParser = require('body-parser');
 var httpServer = http.Server(app);
 var done= false;
 var io = require('socket.io')(httpServer);
 var state = require('./js/game-state-module.js');
 var timerMod = require('./js/timer-test-module.js');
+var GAMEDATA = require('./js/game_data.js');
 
 app.use(express.static(__dirname));
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(multer({ dest: './uploads/',
  rename: function (fieldname, filename) {
@@ -48,12 +53,27 @@ app.get('/callTTO', function(req, res){
     console.log(state);
     state.callTTO();
 });
-app.post('/',function(req,res){
+app.get('/score', function(req, res){
+    //res.send(req);
+    //console.log(state);
+    console.log(req.body);
+    //state.addPoints(req)
+});
+app.post('/score', function(req, res){
+    GAMEDATA.addPoints(req.body.selectedTeam, parseInt(req.body.points));
+    res.send(GAMEDATA.getPoints());
+    
+    //console.log(state);
+    //console.log(req.body);
+    
+    //state.addPoints(req)
+});
+/*app.post('/',function(req,res){
   if(done==true){
     console.log(req.files);
     res.status(204).end();
   }
-});
+});*/
 httpServer.listen(3000);
 
 var timeHolder = {};
