@@ -1,17 +1,32 @@
 {
-"name": "ScoreBoard",
-"node-main":"node-main.js",
- "main": "dashboard.html",
- 
-"window": {
-    "toolbar": true,
-    "width": 1370,
-    "height": 700
-  }
+  "name": "scoreboard",
+  "version": "1.0.0",
+  "description": "scoreboard electron app fr roller derby",
+  "main": "main.js",
+  "dependencies": {
+    "electron-prebuilt": "^0.28.1",
+    "body-parser": "^1.13.1",
+    "javascript-state-machine": "^2.3.5",
+    "express": "^4.11.2",
+    "multer": "^0.1.8",
+    "passport": "^0.2.1",
+    "passport-local": "^1.0.0",
+    "socket.io": "^1.3.5",
+    "timer-stopwatch": "^0.1.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://Mike-williams3000@github.com/johnc303/scoreboard-app.git"
+  },
+  "author": "Mike Williams",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/johnc303/scoreboard-app/issues"
+  },
+  "homepage": "https://github.com/johnc303/scoreboard-app#readme"
 }
-/*
-{
-  "name"    : "electronScoreboard",
-  "main"    : "main.js"
-}
-*/
