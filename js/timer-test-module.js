@@ -5,20 +5,20 @@ var CLOCK_MANAGER = {
     clockDefaults:{
         pClock:{
 			_strName:"pClock",
-			_intDefalutMS: 60000,
+			_intDefalutMS: 1800000,
 			options:{almostDoneMS:30000}
             
 
 			},
         jClock:{
                 _strName:"jClock",
-                _intDefalutMS: 10000
+                _intDefalutMS: 120000
                 
                 
                 },
         lClock:{
                 _strName:"lClock",
-                _intDefalutMS: 5000
+                _intDefalutMS: 30000
                 
                 
                 },
@@ -53,6 +53,24 @@ var CLOCK_MANAGER = {
 
 						};
             
+            
+        },
+    timeUpDown: function (target, intAmount){
+               if (CLOCK_MANAGER.objClocks[target].runTimer == false) {
+                   
+                        var timeToResetTo = function (){
+                        if (CLOCK_MANAGER.objClocks[target].ms + intAmount*1000 >= 0)
+                        {
+                            return CLOCK_MANAGER.objClocks[target].ms + intAmount*1000; 
+                        }
+                       else
+                       {
+                           return 0;
+                       };
+               }();
+                    CLOCK_MANAGER.objClocks[target].reset(timeToResetTo);
+           }
+        
             
         }
 }; 

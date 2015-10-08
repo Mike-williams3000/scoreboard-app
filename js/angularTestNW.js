@@ -7,6 +7,7 @@ app.controller('myCtrl', function($scope, $interval) {
     $scope.lClock = gameClocks.lClock.ms ||  "00:00";
     $scope.TTOClock = gameClocks.TTOClock.ms ||  "00:00";
     $scope.OTOClock = gameClocks.OTOClock.ms ||  "00:00";}, 100)
+    
     $scope.upDownClick = function (target, intAmount){
                if (gameClocks[target].runTimer == false) {
                    
@@ -22,7 +23,7 @@ app.controller('myCtrl', function($scope, $interval) {
                }();
                     gameClocks[target].reset(timeToResetTo);
            }
-        console.log(gameClocks[target].runTimer)
+       // console.log(gameClocks[target].runTimer)
             
         };
     

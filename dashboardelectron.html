@@ -17,12 +17,13 @@
     <script>
         var remote = require('remote');
         var main = remote.require('./main.js');
-        console.log(remote);
+        console.log(main);
         var gameClocks = main.clocks.objClocks;
     window.$ = window.jQuery = require('./js/jquery-2.1.3.js')
       
       
     </script>
+    
       
 
    
@@ -99,8 +100,8 @@
         <button type="button" class="btn btn-lg btn-danger" onclick="main.state.stopJam()">Stop Jam</button><br><br>
         <button type="button" class="btn btn-lg btn-info" onclick="main.state.callTTO()">TTO</button>
         <button type="button" class="btn btn-lg btn-warning" onclick="main.state.callOTO()">OTO</button><br><br>
-        <button type="button" class="btn btn-lg btn-default">Default</button>
-        <button type="button" class="btn btn-lg btn-primary">Primary</button>
+        <button type="button" class="btn btn-lg btn-default" onclick="main.displayFunctions.setFullScreen();">Display Full</button>
+        <button type="button" class="btn btn-lg btn-primary" onclick="main.displayFunctions.openDisplayWindow();">Open Display</button>
         <button type="button" class="btn btn-lg btn-link">Link</button>
               
               <h4>Label</h4>
@@ -117,19 +118,19 @@
                   <td class="clockOutput">{{pClock | date:'mm:ss'}}
                       <div class="btn-group btn-group-justified" role="group" aria-label="...">
                         <div class="btn-group" role="group">
-                            <button type="button" class="btn btn-default" ng-click="upDownClick('pClock', 60)">
+                            <button type="button" class="btn btn-default" onclick="main.clocks.timeUpDown('pClock', 60)">
                             <span class="glyphicon glyphicon-menu-up upDown" aria-hidden="true"></span></button>
                         </div>
                         <div class="btn-group" role="group">
-                            <button type="button" class="btn btn-default" ng-click="upDownClick('pClock', -60)">
+                            <button type="button" class="btn btn-default" onclick="main.clocks.timeUpDown('pClock', -60)">
                             <span class="glyphicon glyphicon-menu-down upDown" aria-hidden="true"></span></button>
                         </div>
                         <div class="btn-group" role="group">
-                            <button type="button" class="btn btn-default" ng-click="upDownClick('pClock', 1)"  style="border-left-width: thick; border-left-color: hotpink;">
+                            <button type="button" class="btn btn-default" onclick="main.clocks.timeUpDown('pClock', 1)"  style="border-left-width: thick; border-left-color: hotpink;">
                             <span class="glyphicon glyphicon-menu-up upDown" aria-hidden="true"></span></button>
                         </div>
                         <div class="btn-group" role="group">
-                            <button type="button" class="btn btn-default" ng-click="upDownClick('pClock', -1)">
+                            <button type="button" class="btn btn-default" onclick="main.clocks.timeUpDown('pClock', -1)">
                             <span class="glyphicon glyphicon-menu-down upDown" aria-hidden="true"></span></button>
                         </div>
                       </div>
@@ -211,6 +212,7 @@
     <script src="bootstrap/docs/assets/js/vendor/holder.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="bootstrap/docs/assets/js/ie10-viewport-bug-workaround.js"></script>
+      
  
   </body>
 </html>

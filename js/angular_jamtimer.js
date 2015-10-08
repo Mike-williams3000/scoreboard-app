@@ -1,10 +1,10 @@
 var app = angular.module('JTApp', []);
-app.controller('timersCtrl', function($scope) {
+app.controller('timersCtrl', function($scope, $http) {
     var socketLoc =  window.location.href.substring(0, window.location.href.lastIndexOf('/'));
                 
       var socket = io(socketLoc);
         socket.on('update', function (objClocks) {
-        console.log(objClocks);
+        //console.log(objClocks);
             
         
     $scope.pClock = objClocks.pClock;
@@ -15,6 +15,22 @@ app.controller('timersCtrl', function($scope) {
             $scope.$apply();
     
   });
+    $scope.upDownClick =function(target, intAmount)
+				{
+                    var json = {};
+                    json.target = target;
+                    json.intAmount = intAmount;
+					$http.post("http://localhost:3000/timeChange", json).success( function(data)
+                                                {
+                                                    console.log("time updated " + data);
+                                                    
+                                                    
+                                                }).
+                                                error(function(data, status, headers, config) {
+                                                    console.log(data, status, headers, config)
+    
+                                                });
+				}
     
 });
      

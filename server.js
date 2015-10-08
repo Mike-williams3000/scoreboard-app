@@ -62,12 +62,21 @@ app.get('/score', function(req, res){
 app.post('/score', function(req, res){
     GAMEDATA.addPoints(req.body.selectedTeam, parseInt(req.body.points));
     res.send(GAMEDATA.getPoints());
+});
+
+app.post('/timeChange', function(req, res){
+    var target = req.body.target;
+    var intAmount = parseInt(req.body.intAmount);
+    timerMod.timeUpDown(target, intAmount);
+    res.send("timechange received");
+    
+});
+    
     
     //console.log(state);
     //console.log(req.body);
     
     //state.addPoints(req)
-});
 /*app.post('/',function(req,res){
   if(done==true){
     console.log(req.files);

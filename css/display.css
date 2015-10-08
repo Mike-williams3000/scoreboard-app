@@ -1,0 +1,19 @@
+body
+{
+    -webkit-app-region: drag;
+    -webkit-user-select: none;
+}
+
+window
+{
+    -webkit-app-region: drag;
+    -webkit-user-select: none;
+}
+
+
+
+.titlebar
+{
+    -webkit-app-region: drag;
+    -webkit-user-select: none;
+}

@@ -26,6 +26,7 @@ var SCOREINT = {
                                                     console.log(data);
                                                     $('#homeScore').html(data.home);
                                                     $('#awayScore').html(data.away);
+                                                
                                                     
                                                 })
 				}
