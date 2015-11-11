@@ -5,6 +5,8 @@
   "main": "main.js",
   "dependencies": {
     "body-parser": "^1.13.1",
+    "electron-builder": "^2.0.1",
+    "electron-packager": "^5.1.0",
     "electron-prebuilt": "^0.28.1",
     "express": "^4.11.2",
     "javascript-state-machine": "^2.3.5",
@@ -19,7 +21,11 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron main.js"
+    "start": "electron main.js",
+    "build:win": "electron-packager ./ \"sbd\" --out=dist --platform=win32 --arch=ia32 --version=0.33.6 --icon=icon.ico --cache=C:/Users/Mike/projects/cache/",
+    "pack:win": "npm run build:win && electron-builder ./ \"dist/sbd-win32\" --platform=win --out=\"dist/win\" --config=config.json",
+      "pack": "electron-builder ./ \"dist/sbd-win32\" --platform=win --out=\"dist/win\" --config=config.json"
+
   },
   "repository": {
     "type": "git",
