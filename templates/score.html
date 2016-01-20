@@ -1,0 +1,24 @@
+
+{% block score %}
+<div class="col-xs-6 col-sm-3 placeholder" ng-controller="scores">
+                <h2 class="sub-header">Score</h2>
+                  <div class="table-responsive">
+            <table class="table table-striped">
+             
+            <tbody>
+                <tr>
+                  <td id="home">Team1</td>
+                  <td id="away">Team2</td>
+                </tr>
+                <tr>
+                    <td id="homeScore" >{% raw %} {{homeScore}} {% endraw %}</td>
+                    <td id="awayScore">{% raw %} {{awayScore}} {% endraw %}</td>
+                </tr>
+               
+                </tbody>
+            </table>
+              
+              
+            </div>
+              </div>
+{% endblock %}

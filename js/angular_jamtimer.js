@@ -2,7 +2,7 @@ var app = angular.module('JTApp', []);
 app.controller('timersCtrl', function($scope, $http) {
     var socketLoc =  window.location.href.substring(0, window.location.href.lastIndexOf('/'));
                 
-      var socket = io(socketLoc);
+      var socket = io(socketLoc + "/getTime");
         socket.on('update', function (objClocks) {
         //console.log(objClocks);
             
@@ -54,4 +54,17 @@ app.controller('buttonsCtrl', function($scope, $http) {
                
    });
 
+app.controller('scores', function($scope, $http) {
+    
+    var socketLoc =  window.location.href.substring(0, window.location.href.lastIndexOf('/'));
+                
+      var socket = io(socketLoc + "/getScore");
+        socket.on('update', function (score) {
+        console.log(score);
+        $scope.homeScore = score.home;
+        $scope.awayScore = score.away;
+        $scope.$apply
+        });
+            
+});
                

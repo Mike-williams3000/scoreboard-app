@@ -1,3 +1,5 @@
+var util         = require("util");
+var EventEmitter = require("events").EventEmitter;
 var GAMEDATA =
 {
     score:
@@ -15,6 +17,7 @@ var GAMEDATA =
     addPoints: function(strTeam, intPoints)
     {
         this.score[strTeam] += intPoints;
+        GAMEDATA.dataEvents.emit("scoreUpdate", this.getPoints())
     },
     
     setPoints: function (strTeam, intPoints){
@@ -25,10 +28,14 @@ var GAMEDATA =
     getPoints: function () {
         
         return this.score;
-    }
+    },
+    
+    dataEvents: new EventEmitter()
     
     
 }
+
+
 
 module.exports = GAMEDATA;
 // need to split this into data and functions, then write data as JSON to disk every (?) jam

@@ -23,7 +23,7 @@ var SCOREINT = {
                     json.points = intPoints;
 					$.post("http://localhost:3000/score", json, function(data)
                                                 {
-                                                    console.log(data);
+                                                    
                                                     $('#homeScore').html(data.home);
                                                     $('#awayScore').html(data.away);
                                                 

@@ -7,9 +7,18 @@ var bodyParser = require('body-parser');
 var httpServer = http.Server(app);
 var done= false;
 var io = require('socket.io')(httpServer);
-var state = require('./js/game-state-module.js');
 var timerMod = require('./js/timer-test-module.js');
+timerMod.createClocks();
+var state = require('./js/game-state-module.js');
 var GAMEDATA = require('./js/game_data.js');
+var swig = require('swig');
+
+app.engine('html', swig.renderFile);
+
+app.set('view engine', 'html');
+app.set('views', __dirname + '/templates');
+app.set('view cache', false);
+swig.setDefaults({ cache: false });
 
 app.use(express.static(__dirname));
 
@@ -30,7 +39,7 @@ onFileUploadComplete: function (file) {
 }));
 
 app.get('/index', function(req, res){
-    res.sendFile(__dirname + '/index.html');
+    res.render('index');
     console.log("file sent");
 });
 app.get('/start', function(req, res){
@@ -91,12 +100,25 @@ for (var i in timerMod.objClocks)
     timeHolder[i] = timerMod.objClocks[i].ms || 0;
 };
 console.log(timeHolder);
-io.on('connection', function (socket) {
-    socket.join('ticker')
-    });
+var sendTime = io
+                .of('/getTime')
+                .on('connection', function (socket) {
+                    socket.join('ticker')
+                    });
+var getScore = io
+                .of('/getScore')
+                .on('connection', function (socket) {
+                    socket.emit('update', GAMEDATA.getPoints())
+                    
+                    });
+GAMEDATA.dataEvents.on("scoreUpdate", function(objScores)
+                    {
+                        getScore.emit("update", objScores)
+                    })
+
 var ticker = setInterval(function(){
     for (var i in timerMod.objClocks)
         {
             timeHolder[i] = timerMod.objClocks[i].ms || 0;
         };
-    io.sockets.in('ticker').emit('update', timeHolder)}, 1000); 
+    sendTime.in('ticker').emit('update', timeHolder)}, 1000); 
