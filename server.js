@@ -2,10 +2,8 @@ var express = require('express');
 var app = express();
 var http = require('http');
 var fs = require('fs');
-var multer = require('multer');
 var bodyParser = require('body-parser');
 var httpServer = http.Server(app);
-var done= false;
 var io = require('socket.io')(httpServer);
 var timerMod = require('./js/timer-test-module.js');
 timerMod.createClocks();
@@ -25,18 +23,7 @@ app.use(express.static(__dirname));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use(multer({ dest: './uploads/',
- rename: function (fieldname, filename) {
-    return fieldname
-  },
-onFileUploadStart: function (file) {
-  console.log(file.originalname + ' is starting ...')
-},
-onFileUploadComplete: function (file) {
-  console.log(file.fieldname + ' uploaded to  ' + file.path)
-  done=true;
-}
-}));
+
 
 app.get('/index', function(req, res){
     res.render('index');
