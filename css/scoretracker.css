@@ -1,0 +1,22 @@
+button 
+{
+    display:inline;
+    
+}
+.sub-header
+{
+    font-size:0;
+    
+}
+body
+{
+    padding-top: 10px;
+    
+}
+.sm-primary-controls
+{
+position:fixed;
+}
+section.stretch{ float: left; height: 1500px; width: 100%; }
+section.stretch p{ font-family: 'Amaranth', sans-serif; font-size: 30px; color: #969696; text-align: center; position: relative; margin-top: 250px; }
+section.stretch p.bottom{ top: 100%; } 

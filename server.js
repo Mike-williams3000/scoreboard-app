@@ -10,6 +10,7 @@ timerMod.createClocks();
 var state = require('./js/game-state-module.js');
 var GAMEDATA = require('./js/game_data.js');
 var swig = require('swig');
+var network = require('./js/network_module.js')
 
 app.engine('html', swig.renderFile);
 
@@ -72,6 +73,12 @@ app.post('/timeChange', function(req, res){
     var intAmount = parseInt(req.body.intAmount);
     timerMod.timeUpDown(target, intAmount);
     res.send("timechange received");
+    
+});
+app.post('/network', function(req, res){
+    var startStop = req.body;
+    network(startStop);
+    res.send("network up!");
     
 });
     

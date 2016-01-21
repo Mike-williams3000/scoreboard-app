@@ -48,7 +48,8 @@ app.controller('buttonsCtrl', function($scope, $http) {
                                     console.log(data, status, headers, config)
     
                                 });
-            }
+            };
+    
                                       
                
                
