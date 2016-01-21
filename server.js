@@ -41,7 +41,14 @@ onFileUploadComplete: function (file) {
 app.get('/index', function(req, res){
     res.render('index');
     console.log("file sent");
+    
 });
+app.get('/scoretracker', function(req, res){
+    res.render('scoretracker');
+    console.log("file sent");
+    
+});
+
 app.get('/start', function(req, res){
     res.send('{"var" : "steated", "array" : [1,2,3,4]}');
     console.log(state);
