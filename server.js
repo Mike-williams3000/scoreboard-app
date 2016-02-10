@@ -10,7 +10,7 @@ timerMod.createClocks();
 var state = require('./js/game-state-module.js');
 var GAMEDATA = require('./js/game_data.js');
 var swig = require('swig');
-var network = require('./js/network_module.js')
+var network = require('./js/network_module.js');
 
 app.engine('html', swig.renderFile);
 

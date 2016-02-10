@@ -4,7 +4,7 @@ var netStart = function(startStop){
  if (startStop == "start")
     {
      function set(){
-        ls = childProcess.exec('netsh wlan set hostednetwork mode=allow ssid=mikefi key=makeitgo', function (error, stdout, stderr) {
+        ls = childProcess.exec('netsh wlan set hostednetwork mode=allow ssid=sbapp key=testpass', function (error, stdout, stderr) {
        if (error) {
          console.log(error.stack);
          console.log('Error code: '+error.code);

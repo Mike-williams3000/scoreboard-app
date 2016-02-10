@@ -13,7 +13,7 @@ var SCOPES = 'https://www.googleapis.com/auth/drive';
    */
   function checkAuth() {
     gapi.auth.authorize(
-        {'client_id': '561098607194-q6vq9pigedpep1c6qln6sa5kfpret0pm.apps.googleusercontent.com', 'scope': SCOPES, 'immediate': true},
+        {'client_id': '.apps.googleusercontent.com', 'scope': SCOPES, 'immediate': true}, //api key removed!
         handleAuthResult);
   }
 
