@@ -19,9 +19,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron main.js",
-    "pack:win": "electron-packager . sbd --out=/dist --platform=win32 --version=0.36.4 --arch=x64 --icon=icon.ico --cache=C:/Users/Mike/projects/cache/",
-    "build:win": "npm run build:win && electron-builder ./dist/sbd-win32\ --platform=win --out=./dist/win --config=config.json",
-    "build": "electron-builder ./dist/sbd-win32-x64/ --platform=win --out=/dist/win --config=config.json"
+    "pack:win": "electron-packager . sbd --out=./dist --platform=win32 --version=0.36.4 --arch=x64 --icon=icon.ico --cache=C:/Users/Mike/projects/cache/",
+    "build": "electron-builder ./dist/sbd-win32-x64 --platform=win --out=./dist/win --config=config.json"
   },
   "repository": {
     "type": "git",

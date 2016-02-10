@@ -4,7 +4,7 @@ var server = require('./server.js');
 var state = require('./js/game-state-module.js');
 var network= require('./js/network_module.js');
 
-network("start");
+//network("start");
 console.log(network);
 
 var app = require('app');  // Module to control application life.
