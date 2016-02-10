@@ -1,0 +1,25 @@
+
+body, html
+{
+	background-color: black;
+	color:white;
+}
+#mainOutputHolderL
+{
+margin-left: 50%;
+
+margin-bottom: 10%;
+}
+
+#homeScoreButtons
+{
+	position:absolute;
+	left:1%;
+	top:1%;
+}
+#awayScoreButtons
+{
+	position:absolute;
+	right:1%;
+	top:1%;
+}

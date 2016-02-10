@@ -1,0 +1,45 @@
+{% extends 'layout.html' %}
+{% block title %}My Page1{% endblock %}
+
+{% block head %}
+  {% parent %}
+  
+{% endblock %}
+
+
+{% block content %}
+
+
+{% include "./navbar.html" %}
+
+    <div class="container-fluid">
+      <div class="row">
+        {% include "./side_bar.html" %}
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-app="JTApp" ng-controller="buttonsCtrl">
+          <h1 class="page-header">Dashboard</h1>
+
+          <div class="row placeholders">
+            {% include "./side_bar.html" %}
+            <div class="col-xs-6 col-sm-3 placeholder">
+                {% include "./primary_controls.html" %}
+            </div>
+            <div class="col-xs-6 col-sm-3 placeholder">
+            {% include "./game_clocks.html" %}
+            </div>
+            <div class="col-xs-6 col-sm-3 placeholder" ng-controller="scores">
+                {% include "./score.html" %}
+            </div>
+            
+            <div class="col-xs-6 col-sm-3 placeholder">
+          
+            </div>
+
+        </div>
+      </div>
+    </div>
+
+  
+  
+      
+ 
+{% endblock %}

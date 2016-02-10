@@ -1,0 +1,64 @@
+
+<h2 class="sub-header">Game Clocks</h2>
+          <div class="table-responsive" ng-controller="timersCtrl">
+            <table class="table table-striped">
+             
+              <tbody>
+                <tr>
+                  <td>Period Clock</td>
+                  <td class="clockOutput">{% raw %} {{pClock | date:'mm:ss'}} {% endraw %}
+                      <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-default" onclick="upDownClick('pClock', 60)">
+                            <span class="glyphicon glyphicon-menu-up upDown" aria-hidden="true"></span></button>
+                        </div>
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-default" onclick="upDownClick('pClock', -60)">
+                            <span class="glyphicon glyphicon-menu-down upDown" aria-hidden="true"></span></button>
+                        </div>
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-default" onclick="upDownClick('pClock', 1)"  style="border-left-width: thick; border-left-color: hotpink;">
+                            <span class="glyphicon glyphicon-menu-up upDown" aria-hidden="true"></span></button>
+                        </div>
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-default" onclick="upDownClick('pClock', -1)">
+                            <span class="glyphicon glyphicon-menu-down upDown" aria-hidden="true"></span></button>
+                        </div>
+                      </div>
+                  
+                       
+                       
+                            
+                      
+                
+                    </td>
+                 
+                </tr>
+                <tr>
+                  <td>Jam Clock</td>
+                  <td>{% raw %} {{jClock | date:'mm:ss'}} {% endraw %}</td>
+                  
+                </tr>
+                <tr>
+                  <td>Line Up Clock</td>
+                  <td>{% raw %} {{lClock | date:'mm:ss'}} {% endraw %}</td>
+                  
+                </tr>
+                <tr>
+                  <td>Team Timeout clock</td>
+                  <td>{% raw %} {{TTOClock | date:'mm:ss'}} {% endraw %}</td>
+                  
+                
+                </tr>
+                <tr>
+                  <td>Official Timeout Clock</td>
+                  <td>{% raw %} {{OTOClock | date:'mm:ss'}} {% endraw %}</td>
+                  
+                </tr>
+                
+               
+              
+              </tbody>
+            </table>
+          </div>
+              

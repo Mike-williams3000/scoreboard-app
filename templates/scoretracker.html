@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+
+
+{% block head %}
+  {% parent %}
+
+{% endblock %}
+
+
+{% block content %}
+
+    {% include "./navbar.html" %}
+<div class="sm-primary-controls">
+    {% include "./primary_controls.html" %}
+</div>
+<section class="stretch">
+<p>content</p>
+<p>end of content</p>
+</section>
+{% endblock %}
+
+{% block foot %}
+<link href="css/scoretracker.css" rel="stylesheet">
+
+{% endblock %}

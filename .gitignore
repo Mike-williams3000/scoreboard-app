@@ -1,0 +1,10 @@
+node_modules
+uploads
+bootstrap
+webkit_test
+test.bat
+dist
+
+
+nbproject/
+scoreboard-1.0.0.tgz

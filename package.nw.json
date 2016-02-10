@@ -1,0 +1,17 @@
+{
+"name": "ScoreBoard",
+"node-main":"node-main.js",
+ "main": "dashboard.html",
+ 
+"window": {
+    "toolbar": true,
+    "width": 1370,
+    "height": 700
+  }
+}
+/*
+{
+  "name"    : "electronScoreboard",
+  "main"    : "main.js"
+}
+*/
