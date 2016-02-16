@@ -35,7 +35,15 @@ var CLOCK_MANAGER = {
                 _intDefalutMS:60000
                     
             }
-        },   
+        }, 
+getAllTimers: function(){
+        var timers = {};
+        for (var i in this.objClocks)
+        {
+            timers[i] = this.objClocks[i].ms || 0;
+        };  
+        return timers;
+},
    createClocks: function()
         {    
             for(var _clock in this.clockDefaults)

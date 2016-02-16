@@ -22,7 +22,7 @@ It's an app built on Electron, which runs it's own version of node, and starts a
 a projected scoreboard and team benches, through mobile devices. 
 
 Still to do:
-Data persistance through light weight database (loki, pouchdb etc)
+Data persistance through light weight database (loki, pouchdb, NeDB etc)
 Move to MVC style!
 Team selection, pictures and numbers for display.
 Template for scoreboard display

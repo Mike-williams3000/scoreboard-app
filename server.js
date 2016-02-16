@@ -12,6 +12,8 @@ var GAMEDATA = require('./js/game_data.js');
 var swig = require('swig');
 var network = require('./js/network_module.js');
 
+var dataControl = require('./js/data_control.js');
+
 app.engine('html', swig.renderFile);
 
 app.set('view engine', 'html');
