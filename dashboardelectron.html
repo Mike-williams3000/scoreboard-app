@@ -19,8 +19,12 @@
         var main = remote.require('./main.js');
         console.log(main);
         var gameClocks = main.clocks.objClocks;
+        var scores = main.GAMEDATA.score;
     window.$ = window.jQuery = require('./js/jquery-2.1.3.js')
-      
+      var loadScores = function(){
+                $('#homeScore').html(scores.home);
+                $('#awayScore').html(scores.away);
+                };
       
     </script>
     
@@ -47,7 +51,7 @@
     <![endif]-->
   </head>
 
-  <body>
+  <body onload="loadScores()">
 
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">

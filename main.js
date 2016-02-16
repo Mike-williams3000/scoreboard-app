@@ -1,8 +1,10 @@
 var timerMod = require('./js/timer-test-module.js');
 var server = require('./server.js');
-
+var GAMEDATA = require('./js/game_data');
 var state = require('./js/game-state-module.js');
 var network= require('./js/network_module.js');
+
+var dataControl = require('./js/data_control.js');
 
 //network("start");
 console.log(network);
@@ -31,7 +33,7 @@ app.on('window-all-closed', function() {
 app.on('ready', function() {
   // Create the browser window.
   mainWindow = new BrowserWindow({width: 800, height: 600});
-
+    
   // and load the index.html of the app.
   mainWindow.loadURL('file://' + __dirname + '/dashboardelectron.html');
     mainWindow.maximize();
@@ -50,6 +52,7 @@ app.on('ready', function() {
     mainWindow = null;
   });
 });
+dataControl.on('DBValuesLoaded', function(){mainWindow.reload()})
 var displayFunctions = {
     
     openDisplayWindow: function()
@@ -68,7 +71,7 @@ var displayFunctions = {
 };
         
     
-    
+module.exports.GAMEDATA = GAMEDATA;    
 module.exports.state = state;
 module.exports.clocks = timerMod;
 module.exports.displayFunctions = displayFunctions;

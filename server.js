@@ -65,6 +65,18 @@ app.get('/score', function(req, res){
     console.log(req.body);
     //state.addPoints(req)
 });
+app.get('/load', function(req, res){
+   
+    dataControl.loadValuesFromDB();
+    console.log("get values");
+    res.send("done");
+});
+app.get('/loadMain', function(req, res){
+   
+    dataControl.loadValuesFromDB();
+    console.log("get values");
+    res.send("done");
+});
 app.post('/score', function(req, res){
     GAMEDATA.addPoints(req.body.selectedTeam, parseInt(req.body.points));
     res.send(GAMEDATA.getPoints());
@@ -125,3 +137,4 @@ var ticker = setInterval(function(){
             timeHolder[i] = timerMod.objClocks[i].ms || 0;
         };
     sendTime.in('ticker').emit('update', timeHolder)}, 1000); 
+

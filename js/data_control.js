@@ -3,12 +3,12 @@ var state = require('./game-state-module.js');
 var data = require('./data.js');
 var GAMEDATA = require('./game_data.js');
 var EventEmitter = require("events").EventEmitter;
-dataController = new EventEmitter()
+var dataController = new EventEmitter()
 
 var Datastore = require('nedb')
   , db = new Datastore({ filename: './datastore' });
 db.loadDatabase(function (err) {    // Callback is optional
-  // Now commands will be executed
+  console.log("db loaded");
 });
 
 state.emitter.on('update', function(){
@@ -37,10 +37,30 @@ state.emitter.on('update', function(){
     })
 });
 
+dataController.loadValuesFromDB = function (N){
+    N = N ? N : 1;
+    db.find().sort({_id:1}).limit(1).exec(function(err, docs){
+                    
+        console.log(docs[0].currentTimes);
+        for (var i in docs[0].currentTimes){
+            if (timerMod.objClocks.hasOwnProperty(i)){
+                timerMod.objClocks[i].reset(docs[0].currentTimes[i]);
+            };
+        for (var j in docs[0].currentPoints ){
+            if (GAMEDATA.score.hasOwnProperty(j)){
+                GAMEDATA.score[j] = docs[0].currentPoints[j];
+            };
+        }
+    
+        };
+    });
+    dataController.emit('DBValuesLoaded');
+};
 
 
 
 
 module.exports = dataController;
+console.log(dataController);
 
 
