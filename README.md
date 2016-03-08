@@ -22,7 +22,8 @@ It's an app built on Electron, which runs it's own version of node, and starts a
 a projected scoreboard and team benches, through mobile devices. 
 
 Still to do:
-Round time up! currently clock starts on 1:59:xx and ends on 0:00:xx should be 2:00 and 0:00
+Round time up! currently clock starts on 1:59:xx and ends on 0:00:xx should be 2:00 and 0:00 - sloved, implemented in browser version
+Loading from database overwrites reset time on clocks - solved, set ms of clock object rather than reset()
 Add mthods for New Game/Load game etc
 Move to MVC style!
 Team selection, pictures and numbers for display.

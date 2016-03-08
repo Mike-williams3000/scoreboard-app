@@ -8,10 +8,10 @@ app.controller('timersCtrl', function($scope, $http) {
             
         
     $scope.pClock = objClocks.pClock;
-    $scope.jClock = objClocks.jClock;
-    $scope.lClock = objClocks.lClock;
-    $scope.TTOClock = objClocks.TTOClock;
-    $scope.OTOClock = objClocks.OTOClock;
+    $scope.jClock = Math.ceil(objClocks.jClock / 1000) * 1000;
+    $scope.lClock = Math.ceil(objClocks.lClock / 1000) * 1000;
+    $scope.TTOClock = Math.ceil(objClocks.TTOClock / 1000) * 1000;
+    $scope.OTOClock = Math.ceil(objClocks.OTOClock / 1000) * 1000;
             $scope.$apply();
     
   });

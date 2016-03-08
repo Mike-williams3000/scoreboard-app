@@ -46,7 +46,7 @@ dataController.loadValuesFromDB = function (N){
         console.log(docs[0].currentTimes);
         for (var i in docs[0].currentTimes){
             if (timerMod.objClocks.hasOwnProperty(i)){
-                timerMod.objClocks[i].reset(docs[0].currentTimes[i]);
+                timerMod.objClocks[i].ms = docs[0].currentTimes[i]; //not clock.reset() as this sets the time to reset to
             };
         for (var j in docs[0].currentPoints ){
             if (GAMEDATA.score.hasOwnProperty(j)){
