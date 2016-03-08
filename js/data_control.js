@@ -15,14 +15,16 @@ state.emitter.on('update', function(){
     var currentState = state.current;
     var currentTimes = timerMod.getAllTimers();
     var currentPoints = GAMEDATA.getPoints();
+    var currentJamNum = GAMEDATA.getJamNum();
     var id = Date.now();
     var dataDoc = {
         id:id,
         currentState:currentState,
         currentTimes:currentTimes,
-        currentPoints:currentPoints
+        currentPoints:currentPoints,
+        currentJamNum:currentJamNum
     };
-    data.push([id, currentState, currentTimes, currentPoints])
+    data.push([id, currentState, currentTimes, currentPoints, currentJamNum])
     console.log(data);
     
     db.insert(dataDoc, function(err, newDoc){
@@ -51,6 +53,9 @@ dataController.loadValuesFromDB = function (N){
                 GAMEDATA.score[j] = docs[0].currentPoints[j];
             };
         }
+        if (docs[0].hasOwnProperty("currentJamNumber")){
+            GAMEDATA.jamNum = docs[0].currentJamNum;
+        };
     
         };
     });

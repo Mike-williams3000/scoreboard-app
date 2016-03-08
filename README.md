@@ -22,7 +22,8 @@ It's an app built on Electron, which runs it's own version of node, and starts a
 a projected scoreboard and team benches, through mobile devices. 
 
 Still to do:
-Data persistance through light weight database (loki, pouchdb, NeDB etc)
+Round time up! currently clock starts on 1:59:xx and ends on 0:00:xx should be 2:00 and 0:00
+Add mthods for New Game/Load game etc
 Move to MVC style!
 Team selection, pictures and numbers for display.
 Template for scoreboard display
@@ -30,6 +31,12 @@ Multigame/user profiles
 User auth - websockets token security
 penalty tracking selection
 Clock functions in browser instance with sync from main
+Add jam counter adjust buttons
+Move all routes to websockits?
 
 Dist contains app packed into .asar files and win folder with installer -WARNING- installs to programFiles(x64) without confirmation!
+
+
+added jan counter, need to add adjust buttons to view. 
+
 

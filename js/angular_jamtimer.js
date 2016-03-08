@@ -59,13 +59,18 @@ app.controller('scores', function($scope, $http) {
     
     var socketLoc =  window.location.href.substring(0, window.location.href.lastIndexOf('/'));
                 
-      var socket = io(socketLoc + "/getScore");
-        socket.on('update', function (score) {
+    var socket = io(socketLoc + "/getScore");
+    socket.on('update', function (score) {
         console.log(score);
         $scope.homeScore = score.home;
         $scope.awayScore = score.away;
         $scope.$apply
-        });
+    });
+    
+    socket.on('jamNumUpdate', function(jamNum){
+         $scope.jamNumber = jamNum;
+    })
+    
             
 });
                

@@ -1,7 +1,9 @@
 var state_machine = require('javascript-state-machine');
 var timerMod = require('./timer-test-module.js');
 
-var EventEmitter = require("events").EventEmitter;
+var EventEmitter = require('events').EventEmitter;
+
+var GAMEDATA = require('./game_data.js');
 
 var GM = state_machine.create({
 	initial: 'gameReady', //for testing, 
@@ -15,17 +17,19 @@ var GM = state_machine.create({
 		],
     callbacks: {
         
-	    onleavegameReady:  function(event, from, to, msg) {
+        onleavegameReady:  function(event, from, to, msg) {
              
             },
           
 	    onjamRunning:  function(event, from, to, msg) { 
-               if (timerMod.objClocks.pClock.runTimer == false) 
-                   {
-                       timerMod.objClocks.pClock.start();
-                   };
-                timerMod.objClocks.jClock.reset();
-                timerMod.objClocks.jClock.start();
+            if (timerMod.objClocks.pClock.runTimer == false) 
+                {
+                   timerMod.objClocks.pClock.start();
+                };
+            timerMod.objClocks.jClock.reset();
+            timerMod.objClocks.jClock.start();
+            GAMEDATA.jamStart();
+            
                 
             },
 	    onleavejamRunning:  function(event, from, to){ 

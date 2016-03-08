@@ -124,12 +124,17 @@ var getScore = io
                 .of('/getScore')
                 .on('connection', function (socket) {
                     socket.emit('update', GAMEDATA.getPoints())
+                    socket.emit('jamNumUpdate', GAMEDATA.getJamNum())
                     
                     });
 GAMEDATA.dataEvents.on("scoreUpdate", function(objScores)
                     {
                         getScore.emit("update", objScores)
-                    })
+                    });
+GAMEDATA.dataEvents.on("jamNumUpdate", function(jamNum)
+                    {
+                        getScore.emit("jamNumUpdate", jamNum)
+                    });
 
 var ticker = setInterval(function(){
     for (var i in timerMod.objClocks)
