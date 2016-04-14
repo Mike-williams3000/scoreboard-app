@@ -21,7 +21,7 @@ app.set('view engine', 'jade');
 app.set('views', __dirname + '/views');
 app.set('view cache', false);
 //swig.setDefaults({ cache: false });
-
+app.locals.pretty = true;
 
 app.use(express.static(__dirname));
 
