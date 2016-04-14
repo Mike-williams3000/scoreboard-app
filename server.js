@@ -9,17 +9,19 @@ var timerMod = require('./js/timer-test-module.js');
 timerMod.createClocks();
 var state = require('./js/game-state-module.js');
 var GAMEDATA = require('./js/game_data.js');
-var swig = require('swig');
+//var swig = require('swig');
+var jade = require('jade');
 var network = require('./js/network_module.js');
 
 var dataControl = require('./js/data_control.js');
 
-app.engine('html', swig.renderFile);
+//app.engine('html', swig.renderFile);
 
-app.set('view engine', 'html');
-app.set('views', __dirname + '/templates');
+app.set('view engine', 'jade');
+app.set('views', __dirname + '/views');
 app.set('view cache', false);
-swig.setDefaults({ cache: false });
+//swig.setDefaults({ cache: false });
+
 
 app.use(express.static(__dirname));
 
