@@ -20,7 +20,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "compile": "jade ./views/index.jade -o ./views/electron",
+    "compile": "jade --obj {electron:true} ./views/index.jade -P -o ./",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron main.js",
     "pack:win": "electron-packager . sbd --out=./dist --platform=win32 --version=0.36.4 --arch=x64 --icon=icon.ico --cache=C:/Users/Mike/projects/cache/",

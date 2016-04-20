@@ -13,12 +13,14 @@ html(lang='en')
     script(src='/js/socket.io.js')
     script(src='js/key_controls.js')
     script(src='js/score_interactions.js')
-    script(src='js/adjustClocks.js')
+   
     if electron
+     script(src="js/angContElectron.js")
      script.
       var remote = require('remote');
       var main = remote.require('./main.js');
       console.log(main);
+	  var upDownClick = main.clocks.upDownClick;
       var gameClocks = main.clocks.objClocks;
       var scores = main.GAMEDATA.score;
       window.$ = window.jQuery = require('./js/jquery-2.1.3.js')
@@ -26,6 +28,9 @@ html(lang='en')
       $('#homeScore').html(scores.home);
       $('#awayScore').html(scores.away);
       };
+    else
+     script(src='js/angContBrowser.js')
+	 script(src='js/adjustClocks.js')
    
     title Scoreboard Application
     // Bootstrap core CSS

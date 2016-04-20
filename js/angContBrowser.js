@@ -1,4 +1,4 @@
-var app = angular.module('JTApp', []);
+var app = angular.module('mainControls', []);
 app.controller('timersCtrl', function($scope, $http) {
     var socketLoc =  window.location.href.substring(0, window.location.href.lastIndexOf('/'));
                 
