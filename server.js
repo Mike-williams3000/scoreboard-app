@@ -97,6 +97,11 @@ app.post('/network', function(req, res){
     res.send("network up!");
     
 });
+app.get('/index_react', function(req, res){
+    res.sendFile(__dirname + '/views/index_react.html');
+    console.log("file sent");
+    
+});
     
     
     //console.log(state);
