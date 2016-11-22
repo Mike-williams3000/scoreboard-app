@@ -1,0 +1,127 @@
+extends ./layout.jade
+
+block content
+ nav.navbar.navbar-inverse.navbar-fixed-top
+      .container-fluid
+        .navbar-header
+          button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#navbar', aria-expanded='false', aria-controls='navbar')
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand(href='/index') ScoreBoard
+        #navbar.navbar-collapse.collapse
+          ul.nav.navbar-nav.navbar-right
+            li
+              a(href='#') Dashboard
+            li
+              a(href='#') Settings
+            li
+              a(href='#') Profile
+            li
+              a(href='#') Help
+    .container-fluid
+      .row
+        .col-sm-3.col-md-2.sidebar
+          ul.nav.nav-sidebar
+            li.active
+              a(href='#')
+                | Main Controls 
+                span.sr-only (current)
+            li
+              a(href='#') Team Selection
+            li
+              a(href='#') Recovery
+            li
+              a(href='/scoretracker') Score tracker
+          ul.nav.nav-sidebar
+            li
+              a(href='') Nav item
+            li
+              a(href='') Nav item again
+            li
+              a(href='') One more nav
+            li
+              a(href='') Another nav item
+            li
+              a(href='') More navigation
+        .col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main(ng-app='mainControls', ng-controller='buttonsCtrl')
+          h1.page-header Dashboard
+          .row.placeholders
+            .col-sm-3.col-md-2.sidebar
+              ul.nav.nav-sidebar
+                li.active
+                  a(href='#')
+                    | Main Controls 
+                    span.sr-only (current)
+                li
+                  a(href='#') Team Selection
+                li
+                  a(href='#') Recovery
+                li
+                  a(href='/scoretracker') Score tracker
+              ul.nav.nav-sidebar
+                li
+                  a(href='') Nav item
+                li
+                  a(href='') Nav item again
+                li
+                  a(href='') One more nav
+                li
+                  a(href='') Another nav item
+                li
+                  a(href='') More navigation
+            .col-xs-6.col-sm-3.placeholder
+              h2.sub-header Primary Controls
+              button.btn.btn-lg.btn-success(type='button', ng-click="click('start')") Start Jam
+              button.btn.btn-lg.btn-danger(type='button', ng-click="click('stop')") Stop Jam
+              button.btn.btn-lg.btn-info(type='button', ng-click="click('callTTO')") TTO
+              button.btn.btn-lg.btn-warning(type='button', ng-click="click('callOTO')") OTO
+              button.btn.btn-lg.btn-default(type='button') Default
+              button.btn.btn-lg.btn-primary(type='button') Primary
+            .col-xs-6.col-sm-3.placeholder
+              h2.sub-header Game Clocks
+              .table-responsive(ng-controller='timersCtrl')
+                table.table.table-striped
+                  tbody
+                    tr
+                      td Period Clock
+                      td.clockOutput
+                        | {{pClock | date:'mm:ss'}} 
+                        .btn-group.btn-group-justified(role='group', aria-label='...')
+                          .btn-group(role='group')
+                            button.btn.btn-default(type='button', onclick="upDownClick('pClock', 60)")
+                              span.glyphicon.glyphicon-menu-up.upDown(aria-hidden='true')
+                          .btn-group(role='group')
+                            button.btn.btn-default(type='button', onclick="upDownClick('pClock', -60)")
+                              span.glyphicon.glyphicon-menu-down.upDown(aria-hidden='true')
+                          .btn-group(role='group')
+                            button.btn.btn-default(type='button', onclick="upDownClick('pClock', 1)", style='border-left-width: thick; border-left-color: hotpink;')
+                              span.glyphicon.glyphicon-menu-up.upDown(aria-hidden='true')
+                          .btn-group(role='group')
+                            button.btn.btn-default(type='button', onclick="upDownClick('pClock', -1)")
+                              span.glyphicon.glyphicon-menu-down.upDown(aria-hidden='true')
+                    tr
+                      td Jam Clock
+                      td  {{jClock | date:'mm:ss'}} 
+                    tr
+                      td Line Up Clock
+                      td  {{lClock | date:'mm:ss'}} 
+                    tr
+                      td Team Timeout clock
+                      td  {{TTOClock | date:'mm:ss'}} 
+                    tr
+                      td Official Timeout Clock
+                      td  {{OTOClock | date:'mm:ss'}} 
+            .col-xs-6.col-sm-3.placeholder(ng-controller='scores')
+              h2.sub-header Score - Jam Num:  {{jamNumber}}  
+              .table-responsive
+                table.table.table-striped
+                  tbody
+                    tr
+                      td#home Team1
+                      td#away Team2
+                    tr
+                      td#homeScore  {{homeScore}} 
+                      td#awayScore  {{awayScore}} 
+            .col-xs-6.col-sm-3.placeholder

@@ -1,12 +1,14 @@
 var util         = require("util");
 var EventEmitter = require("events").EventEmitter;
+
 var GAMEDATA =
 {
+    jamNum: 0,
     score:
-    {
-        home: 0,
-        away:0
-    },
+        {
+            home: 0,
+            away:0
+        },
     scoreTrackerHome:{}, //{1:[pass1, pass2...]} accesable by main and home score tracker
     scoreTrackerAway:{},
     lineUpTrackerHome:{}, //{1:[playerNumber1, playerNumber2...]}
@@ -28,6 +30,25 @@ var GAMEDATA =
     getPoints: function () {
         
         return this.score;
+    },
+    
+    jamStart: function(){
+        this.jamNum ++
+        GAMEDATA.dataEvents.emit("jamNumUpdate", this.getJamNum())
+    },
+        
+    jamNumUpDown: function(upDown){
+        if (upDown == "up"){
+            this.jamNum ++
+        };
+        if (upDown == "down"){
+            this.jamNum --
+        };
+        GAMEDATA.dataEvents.emit("jamNumUpdate", this.getJamNum())
+    },
+        
+    getJamNum: function(){
+        return this.jamNum;
     },
     
     dataEvents: new EventEmitter()

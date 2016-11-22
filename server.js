@@ -9,15 +9,19 @@ var timerMod = require('./js/timer-test-module.js');
 timerMod.createClocks();
 var state = require('./js/game-state-module.js');
 var GAMEDATA = require('./js/game_data.js');
-var swig = require('swig');
+//var swig = require('swig');
+var jade = require('jade');
 var network = require('./js/network_module.js');
 
-app.engine('html', swig.renderFile);
+var dataControl = require('./js/data_control.js');
 
-app.set('view engine', 'html');
-app.set('views', __dirname + '/templates');
+//app.engine('html', swig.renderFile);
+
+app.set('view engine', 'jade');
+app.set('views', __dirname + '/views');
 app.set('view cache', false);
-swig.setDefaults({ cache: false });
+//swig.setDefaults({ cache: false });
+app.locals.pretty = true;
 
 app.use(express.static(__dirname));
 
@@ -63,6 +67,18 @@ app.get('/score', function(req, res){
     console.log(req.body);
     //state.addPoints(req)
 });
+app.get('/load', function(req, res){
+   
+    dataControl.loadValuesFromDB();
+    console.log("get values");
+    res.send("done");
+});
+app.get('/loadMain', function(req, res){
+   
+    dataControl.loadValuesFromDB();
+    console.log("get values");
+    res.send("done");
+});
 app.post('/score', function(req, res){
     GAMEDATA.addPoints(req.body.selectedTeam, parseInt(req.body.points));
     res.send(GAMEDATA.getPoints());
@@ -79,6 +95,11 @@ app.post('/network', function(req, res){
     var startStop = req.body;
     network(startStop);
     res.send("network up!");
+    
+});
+app.get('/index_react', function(req, res){
+    res.sendFile(__dirname + '/views/index_react.html');
+    console.log("file sent");
     
 });
     
@@ -110,12 +131,17 @@ var getScore = io
                 .of('/getScore')
                 .on('connection', function (socket) {
                     socket.emit('update', GAMEDATA.getPoints())
+                    socket.emit('jamNumUpdate', GAMEDATA.getJamNum())
                     
                     });
 GAMEDATA.dataEvents.on("scoreUpdate", function(objScores)
                     {
                         getScore.emit("update", objScores)
-                    })
+                    });
+GAMEDATA.dataEvents.on("jamNumUpdate", function(jamNum)
+                    {
+                        getScore.emit("jamNumUpdate", jamNum)
+                    });
 
 var ticker = setInterval(function(){
     for (var i in timerMod.objClocks)
@@ -123,3 +149,4 @@ var ticker = setInterval(function(){
             timeHolder[i] = timerMod.objClocks[i].ms || 0;
         };
     sendTime.in('ticker').emit('update', timeHolder)}, 1000); 
+

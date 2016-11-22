@@ -1,4 +1,4 @@
-var app = angular.module('JTApp', []);
+var app = angular.module('mainControls', []);
 app.controller('timersCtrl', function($scope, $http) {
     var socketLoc =  window.location.href.substring(0, window.location.href.lastIndexOf('/'));
                 
@@ -8,10 +8,10 @@ app.controller('timersCtrl', function($scope, $http) {
             
         
     $scope.pClock = objClocks.pClock;
-    $scope.jClock = objClocks.jClock;
-    $scope.lClock = objClocks.lClock;
-    $scope.TTOClock = objClocks.TTOClock;
-    $scope.OTOClock = objClocks.OTOClock;
+    $scope.jClock = Math.ceil(objClocks.jClock / 1000) * 1000;
+    $scope.lClock = Math.ceil(objClocks.lClock / 1000) * 1000;
+    $scope.TTOClock = Math.ceil(objClocks.TTOClock / 1000) * 1000;
+    $scope.OTOClock = Math.ceil(objClocks.OTOClock / 1000) * 1000;
             $scope.$apply();
     
   });
@@ -59,13 +59,18 @@ app.controller('scores', function($scope, $http) {
     
     var socketLoc =  window.location.href.substring(0, window.location.href.lastIndexOf('/'));
                 
-      var socket = io(socketLoc + "/getScore");
-        socket.on('update', function (score) {
+    var socket = io(socketLoc + "/getScore");
+    socket.on('update', function (score) {
         console.log(score);
         $scope.homeScore = score.home;
         $scope.awayScore = score.away;
         $scope.$apply
-        });
+    });
+    
+    socket.on('jamNumUpdate', function(jamNum){
+         $scope.jamNumber = jamNum;
+    })
+    
             
 });
                
